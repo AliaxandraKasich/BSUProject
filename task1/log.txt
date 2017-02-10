@@ -1,0 +1,11 @@
+commit 5656a83000d0c9cf92827965af001b2e60fbc742
+Author: AliaxsandraKasich <Sane4ka022@mail.ru>
+Date:   Fri Feb 10 13:13:32 2017 +0300
+
+    add status.txt
+
+commit 4a9db6423a4ef5537404d269b6749120d8c094a9
+Author: AliaxsandraKasich <Sane4ka022@mail.ru>
+Date:   Fri Feb 10 13:11:27 2017 +0300
+
+    add .gitignore
