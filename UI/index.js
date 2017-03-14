@@ -333,16 +333,21 @@ var htmlControler = function () {
     }
 
     function addArticle(article) {
-
         ARTICLE_LIST_NODE.appendChild(renderArticle(article));
     }
 
-    function removeArticle() {
-
-        ARTICLE_LIST_NODE.innerHTML = '';
+    function removeArticle(id) {
+       var node =  document.querySelector('[data-id~="' + id +'"]');
+       if(node){
+           node.remove();
+       }
     }
 
     function editArticle(id, article) {
+        var node =  document.querySelector('[data-id~="' + id +'"]');
+        if(node){
+            node.innerHTML = renderArticle(article).innerHTML;
+        }
 
     }
 
@@ -375,24 +380,24 @@ function showArticles(skip, top, filter) {
 }
 
 function addArticle(article) {
-    workerWithArticles.addArticle(article);
+    var temp = workerWithArticles.addArticle(article);
     workerWithHtml.addArticle(article);
     var array = workerWithArticles.getArticles();
     workerWithHtml.showArticles(array);
 }
 
 function removeArticle(id) {
-        workerWithArticles.removeArticle(id);
-        var array = workerWithArticles.getArticles();
-        workerWithHtml.removeArticle();
-        workerWithHtml.showArticles(array);
-
+        var temp= workerWithArticles.removeArticle(id);
+        workerWithHtml.removeArticle(id);
+        return temp;
 }
 
 function editArticle(id, article) {
-    workerWithArticles.editArticle(id, article);
-    var array = workerWithArticles.getArticles();
-    workerWithHtml.showArticles(array);
+    var temp = workerWithArticles.editArticle(id, article);
+    var newArticle = workerWithArticles.getArticle(id);
+    console.log(newArticle);
+    workerWithHtml.editArticle(id, newArticle);
+    return temp;
 
 }
 
