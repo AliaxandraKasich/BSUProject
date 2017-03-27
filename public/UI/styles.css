@@ -1,0 +1,689 @@
+body, html {
+    max-width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "Lucida Console";
+    background: #ecdfff;
+}
+
+
+header {
+    background-color: purple;
+    width: 100%;
+    height: 13%;
+    position: fixed;
+    display: block;
+    top:0;
+}
+.clearfix {
+    clear:both;
+}
+.logo-img{
+    height: 40px;
+    margin-top: 1.6%;
+    margin-left: 3%;
+    float: left;
+}
+#logo {
+    color: white;
+    font-size: 35px;
+    margin-left: 1%;
+    margin-top: 2%;
+    font-family: "Lucida Console";
+    float: left;
+    background: purple !important;
+    outline: none;
+    border: none;
+}
+#logo:hover{
+    background: purple;
+}
+header button {
+    float: right;
+    margin-top: 2%;
+    font-size: 17px;
+    margin-right: 7.3%;
+    background: none;
+    border: #fff 2px solid;
+    cursor: pointer;
+    font-family: "Rage Italic";
+    color: #fff;
+    width: 100px;
+    height: 30px;
+    outline: none;
+}
+header button:hover{
+    background: #debceb;
+    color: purple;
+}
+.your-name{
+    margin-top: 2%;
+    float: right;
+    font-size: 24px;
+    margin-right: 5%;
+    color: #fff;
+    font-family: "Rage Italic";
+
+}
+.content2{
+    width: 2px;
+    height: 510px;
+}
+
+.content{
+    margin-top: 10%;
+    margin-left: 8%;
+    float: left;
+}
+.block{
+    width: 700px;
+    height: 100%;
+    background: white;
+    padding-top: 0.01%;
+    padding-left: 1%;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+.name{
+    color: black;
+    font-size: 30px;
+    font-family: "Lucida Console";
+    font-weight: bold;
+    text-indent: 40px;
+}
+.img-news{
+    width: 692px;
+    height: 320px;
+    border-radius: 5px;
+
+}
+.text-news{
+    color:black;
+    font-size: 17px;
+    font-family: "Bookman Old Style" ;
+    text-indent: 40px ;
+}
+.all{
+    color:black;
+    font-size: 17px;
+    font-family: "Bookman Old Style" ;
+    text-indent: 40px ;
+    display: none;
+}
+.text-author{
+    color:black;
+    font-size: 17px;
+    font-family: Dialog ;
+    font-style: oblique;
+    float: left;
+    margin-left: 5%;
+
+}
+.text-date{
+    color:black;
+    font-size: 17px;
+    font-family: Dialog ;
+    font-style: oblique;
+    float: left;
+    margin-left: 5%;
+
+}
+.more{
+    float: right;
+    font-size: 17px;
+    margin-right: 5%;
+    background: #ecdfff;
+    border: purple 2px solid;
+    cursor: pointer;
+    font-family: "Rage Italic";
+    color: purple;
+    width: 120px;
+    height: 40px;
+    border-radius: 5px;
+    outline: none;
+}
+.more:hover{
+    background: #debceb;
+}
+.delete{
+    float: left;
+    font-size: 17px;
+    margin-left: 3%;
+    margin-bottom: 17px;
+    height: 20px;
+    width: 92px;
+    cursor: pointer;
+    border: none;
+    color: purple;
+    background: none;
+    font-family: "Rage Italic";
+    font-style: italic;
+    outline: none;
+}
+.redacte{
+    float:left;
+    font-style: italic;
+    margin-left: 0.5%;
+    height: 20px;
+    width: 120px;
+    font-size: 17px;
+    cursor: pointer;
+    border: none;
+    color: purple;
+    background: none;
+    font-family: "Rage Italic";
+    outline: none;
+}
+
+.footer{
+    bottom: 0;
+    height: 4%;
+    background: purple;
+    margin-top: 2%;
+    padding-left: 6%;
+    align-content: center;
+    justify-content: center;
+}
+.footer p {
+    margin-top: 0;
+    padding-top: 6px;
+}
+.info-in-footer{
+    color:white;
+    font-size: 15px;
+    font-family: Arial ;
+    float: left;
+    margin-left: 8%;
+}
+
+.filter{ width: 28%;
+    height: 340px;
+    background: none;
+    float: right;
+    margin-top: 7.4%;
+    margin-right: 4%;
+    border-radius: 5px;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-top: 2%;
+    align-content: center;
+    justify-content: center;
+}
+.block-filter{
+    width: 90%;
+    height: 210px;
+    background: none;
+    float: right;
+
+    margin-top: 2%;
+    margin-right: 2%;
+    border-radius: 5px;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-top: 2%;
+    align-content: center;
+    justify-content: center;
+    border: purple 2px solid;
+}
+.name-filter{
+    font-size: 25px;
+    font-family: "Rage Italic";
+    text-align: center;
+    font-weight: 200;
+}
+.search-options{
+    float: left;
+    font-size: 17px;
+    margin-left: 3%;
+    margin-right: 3%;
+    font-family: "Rage Italic";
+
+
+}
+.text{
+    float:right;
+    margin-top: 4.5%;
+    margin-right: 2%;
+
+}
+.text2{
+    float:right;
+    width: 203px;
+    font-size: 15px;
+    margin-top: 4.5%;
+    margin-right: 2%;
+
+}
+.button-apply{
+    font-size: 20px;
+    margin-top: 5%;
+    margin-left: 6%;
+    margin-right: 6%;
+    background: purple;
+    border: purple 2px solid;
+    cursor: pointer;
+    font-family: "Rage Italic";
+    color: white;
+    width: 88%;
+    height: 34px;
+    outline: none;
+}
+.button-apply:hover{
+    background: #debceb;
+    color: purple;
+}
+
+
+.add-news{
+    width: 75%;
+    height: 35px;
+    margin-left: 13%;
+    margin-top: 5px;
+    border: purple 2px solid;
+    background: purple;
+    color: white;
+    font-size: 20px;
+    font-family: "Rage Italic";
+    cursor: pointer;
+    outline: none;
+}
+.add-news:hover{
+    background: #debceb;
+    color: purple;
+}
+
+#template-article-list-item {
+    display: none;
+}
+
+#template-news{
+    display: none;
+    margin-top: 8%;
+    margin-left: 8%;
+    margin-bottom: 6%;
+    float: left;
+
+}
+#page-news{
+    width: 800px;
+    height: 100%;
+    background: white;
+    padding-top: 0.01%;
+    padding-left: 1%;
+    border-radius: 5px;
+    margin-bottom: 20px;
+
+}
+.page-name{
+    color: black;
+    font-size: 30px;
+    font-family: "Lucida Console";
+    font-weight: bold;
+    text-indent: 40px;
+}
+.imgNews{
+    width: 792px;
+    height: 340px;
+    border-radius: 5px;
+
+}
+.summary{
+    display: none;
+}
+.all-text-news{
+    height: 100%;
+    color:black;
+    font-size: 17px;
+    text-indent: 40px;
+    font-family: "Bookman Old Style" ;
+}
+.text-author2{
+    color:black;
+    font-size: 17px;
+    font-family: Dialog ;
+    font-style: oblique;
+    float: left;
+    margin-left: 5%;
+}
+.text-date2{
+    color:black;
+    font-size: 17px;
+    font-family: Dialog ;
+    font-style: oblique;
+    float: left;
+    margin-left: 5%;
+}
+
+.delete2{
+    float: left;
+    font-size: 17px;
+    margin-left: 3%;
+    margin-bottom: 17px;
+    height: 20px;
+    width: 92px;
+    cursor: pointer;
+    border: none;
+    color: purple;
+    background: none;
+    font-family: "Rage Italic";
+    font-style: italic;
+    outline: none;
+}
+.redacte2{
+    float:left;
+    font-style: italic;
+    margin-left: 0.5%;
+    height: 20px;
+    width: 120px;
+    font-size: 17px;
+    cursor: pointer;
+    border: none;
+    color: purple;
+    background: none;
+    font-family: "Rage Italic";
+    outline: none;
+}
+
+
+
+
+
+
+
+
+
+#redacte-form{
+    margin-top: 0px;
+    width: 1000px;
+    height: 408px;
+    margin-left: 2%;
+    margin-bottom: 40px;
+    display: none;
+}
+#redacte-form2{
+    margin-top: 0px;
+    width: 1000px;
+    height: 408px;
+    margin-left: 2%;
+    margin-bottom: 40px;
+    display: none;
+}
+.zapolnenie{
+    float: left;
+    margin-left: 10%;
+    font-size: 25px;
+    font-family: "Rage Italic";
+    font-style: inherit;
+    width: 1000px;
+    border: #ffdaed 1px outset;
+    color: purple;
+
+}
+.r-title{
+    border: purple 1px inset;
+    height: 35px;
+    width: 600px;
+    font-family:"Rage Italic";
+    font-size: 24px;
+    cursor: pointer;
+    margin-left: 20px;
+    float: right;
+    background: #ecdfff;
+    resize: none;
+    overflow: auto;
+}
+.r-summary{
+    border: purple 1px inset;
+    height: 50px;
+    font-family:"Rage Italic";
+    font-size: 24px;
+    width: 600px;
+    cursor: pointer;
+    margin-left: 20px;
+    background: #ecdfff;
+    float: right;
+    resize: none;
+    overflow: auto;
+
+}
+.r-img{
+    border: purple 1px inset;
+    height: 40px;
+    font-family:"Rage Italic";
+    width: 600px;
+    font-size: 24px;
+    cursor: pointer;
+    margin-left: 20px;
+    background: #ecdfff;
+    float: right;
+    resize: none;
+    overflow: auto;
+
+}
+.r-content{
+    border: purple 1px inset;
+    height: 50px;
+    font-family:"Rage Italic";
+    font-size: 24px;
+    width: 600px;
+    cursor: pointer;
+    float: right;
+    margin-left: 20px;
+    background: #ecdfff;
+    resize: none;
+    overflow: auto;
+}
+.informetion{
+    color: purple;
+    font-size: 35px;
+    margin-left: 1%;
+    margin-top: 2%;
+    font-family: "Lucida Console";
+    float: left;
+}
+
+
+
+
+.apply{
+    float: right;
+    margin-top: 0.2%;
+    font-size: 18px;
+    margin-right: 1%;
+    background: purple;
+    border: purple 2px solid;
+    cursor: pointer;
+    font-family: "Rage Italic";
+    color: #fff;
+    width: 110px;
+    height: 35px;
+    outline: none;
+}
+.apply:hover{
+    background: #debceb;
+    color: purple;
+}
+.apply2{
+    float: right;
+    margin-top: 0.2%;
+    font-size: 18px;
+    margin-right: 1%;
+    background: purple;
+    border: purple 2px solid;
+    cursor: pointer;
+    font-family: "Rage Italic";
+    color: #fff;
+    width: 110px;
+    height: 35px;
+    outline: none;
+}
+.apply2:hover{
+    background: #debceb;
+    color: purple;
+}
+
+
+
+.r-data{
+    border: none;
+    height: 25px;
+    font-family:"Rage Italic";
+    font-size: 22px;
+    width: 200px;
+    cursor: pointer;
+    float: left;
+    margin-left: 100px;
+    background: #ecdfff;
+    resize: none;
+    overflow: auto;
+}
+.r-author{
+    border: none;
+    height: 25px;
+    font-family:"Rage Italic";
+    font-size: 22px;
+    width: 300px;
+    cursor: pointer;
+    float: left;
+    margin-left: 20px;
+    background: #ecdfff;
+    resize: none;
+    overflow: auto;
+}
+
+
+.pagination-bar{
+    margin-top: 5%;
+    margin-left: 20%;
+   float: left;
+    width: 150px;
+    height: 40px;
+    outline: none;
+    background: none;
+    align-content: center;
+    align-items: center;
+}
+#pagination-show-more{
+    background: #f5e7d7;
+    border: purple 2px solid;
+    cursor: pointer;
+    font-family:"Rage Italic";
+    font-size: 17px;
+    color: white;
+    width: 130px;
+    height: 35px;
+    outline: none;
+    background: purple;
+    align-content: center;
+    align-items: center;
+    border-radius: 4px;
+}
+#pagination-show-more:hover{
+    background: #ecdfff;
+    color: purple;
+}
+
+
+
+
+
+
+
+
+
+#hello-world{
+    margin-top: 10%;
+    color: purple;
+    font-family: "Lucida Console";
+    letter-spacing: -1px;
+    align-items: center;
+    align-content: center;
+    margin-left: 31%;
+    font-size: 34px;
+    margin-bottom: 3px;
+    display: none;
+}
+
+
+.content3{
+    margin-top: 1%;
+    margin-left: 10%;
+    float: left;
+    width: 40%;
+    height: 40%;
+    background: none;
+    display: none;
+}
+.login-user{
+    margin-top: 6%;
+    margin-left: 5%;
+    font-size: 30px;
+    font-family: Arial;
+    color: purple;
+    font-weight: 200;
+    margin-bottom: 4px;
+}
+
+.text-login{
+     margin-left: 5%;
+     border: purple 2px solid;
+     height: 25px;
+     border-radius: 5px;
+     font-size: 20px;
+     outline: none;
+ }
+.text-pass{
+    margin-left: 5%;
+    border: purple 2px solid;
+    height: 25px;
+    border-radius: 5px;
+    font-size: 20px;
+    outline: none;
+}
+.enter-button{
+    margin-left: 5%;
+    border: purple 2px solid;
+    background: purple;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    width: 130px;
+    height: 40px;
+    margin-top: 4%;
+    outline: none;
+}
+.enter-button:hover {
+    background: #debceb;
+    color: purple;
+}
+
+
+
+
+
+.work_with-error{
+    margin-top: 15%;
+    margin-left: 10%;
+    background: none;
+    height: 60%;
+    width: 100%;
+    display: none;
+}
+.text-error{
+    color: purple;
+    font-family: "Lucida Console";
+    font-size: 35px;
+    float: left;
+}
+.button-error{
+    background: none;
+    border: none;
+    font-size: 45px;
+    color: purple;
+    float: left;
+    margin-left: 20px;
+    margin-top: 21px;
+    cursor: pointer;
+    outline: none;
+}

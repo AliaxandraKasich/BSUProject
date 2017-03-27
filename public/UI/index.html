@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NewsPortal</title>
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+<header>
+    <img class="logo-img" src="https://wordassociations.net/image/200x/svg_to_png/risto_pekkala_Dove_flying.png">
+    <button id="logo">NewsPortal </button>
+    <button id="button-exit" type="button">Войти</button>
+    <p class="your-name">     </p>
+
+    <div class="clearfix"></div>
+
+</header>
+
+<div class="content" id="article-list">
+
+</div>
+
+
+
+
+<div class="filter">
+    <div class="block-filter">
+        <div class="name-filter">Параметры поиска</div>
+        <p class="search-options">
+            по автору
+        </p>
+        <input class="text" size="25">
+        <div class="clearfix"></div>
+
+        <p class="search-options">
+            по дате
+        </p>
+        <input class="text2" size="100" type="date">
+
+        <div class="clearfix"></div>
+        <button class="button-apply" type="button">Применить</button>
+
+
+    </div>
+    <button class="add-news" type="button">Добавить новость</button>
+</div>
+
+<!-- templates -->
+<div id='template-news'>
+    <div id="page-news">
+        <p class="page-name"> </p>
+        <br>
+        <img class="imgNews" src="https://sputnik.by/images/101841/75/1018417589.jpg">
+        <p class="summary"></p>
+        <p class="all-text-news"> </p>
+        <p class="text-author2"> </p>
+        <p class="text-date2"></p>
+        <div class="clearfix"></div>
+        <button class="delete2" type="button"> Удалить</button>
+        <button class="redacte2" type="button"> Редактировать</button>
+        <br>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+    <div id="redacte-form">
+        <p class="informetion">Заполните/редактируйте следующее</p>
+        <p class="zapolnenie"> Название статьи
+            <textarea class="r-title" maxlength="100" type="text" size="50" ></textarea>
+        </p>
+
+        <p class="zapolnenie"> Краткое содержание статьи
+            <textarea class="r-summary"  maxlength="200" type="text" size="50" ></textarea>
+        </p>
+
+        <p class="zapolnenie"> Ссылка на изображение
+            <textarea class="r-img" type="text"  size="50" > </textarea>
+        </p>
+
+        <p class="zapolnenie"> Текст статьи
+            <textarea class="r-content" type="text" size="50" > </textarea>
+        </p>
+        <input class="r-data"  value="25.02.2015" readonly>
+        <input class="r-author"  value=" кристина " readonly>
+        <button class="apply" type="button">Применить</button>
+    </div>
+<div class="clearfix"></div>
+<div id="redacte-form2">
+    <p class="informetion">Заполните/редактируйте следующее</p>
+    <p class="zapolnenie"> Название статьи
+        <textarea class="r-title" maxlength="100" type="text" size="50" ></textarea>
+    </p>
+
+    <p class="zapolnenie"> Краткое содержание статьи
+        <textarea class="r-summary"  maxlength="200" type="text" size="50" ></textarea>
+    </p>
+
+    <p class="zapolnenie"> Ссылка на изображение
+        <textarea class="r-img" type="text"  size="50" > </textarea>
+    </p>
+
+    <p class="zapolnenie"> Текст статьи
+        <textarea class="r-content" type="text" size="50" > </textarea>
+    </p>
+    <input class="r-data"  value="25.02.2015" readonly>
+    <input class="r-author"  value=" кристина " readonly>
+    <button class="apply2" type="button">Применить</button>
+</div>
+
+
+
+
+<p id="hello-world">Добро пожаловать на NewsPortal</p>
+<div class="content3">
+    <p class="login-user">Логин</p>
+    <input  class="text-login" size="37">
+    <p class="login-user">Пароль</p>
+    <input  type="password" class="text-pass" size="37">
+    <button class="enter-button">Войти</button>
+</div>
+
+
+<div class="work_with-error">
+    <p class="text-error">Что-то пошло не так. Вернитесь на</p>
+    <button class="button-error">NewsPortal</button>
+</div>
+<div class="clearfix"></div>
+
+<div class = "content2">
+
+</div>
+<div class="clearfix"></div>
+
+<!--<button class="back-button"> <</button>
+
+<select class="select">
+    <option> Страница 1</option>
+    <option> Страница 2</option>
+    <option> Страница 3</option>
+</select>
+<button class="next-button" type="button"> ></button>
+-->
+
+<div class="pagination-bar">
+    <button id="pagination-show-more">Показать ещё</button>
+</div>
+
+
+<!-- templates -->
+<div id='template-article-list-item'>
+    <div class="block" data-id="0">
+        <p class="name"> </p>
+        <img class="img-news" src="http://n1.by/sites/default/files/tmp/1465251603.jpg">
+        <p class="text-news"> </p>
+        <p class="all"></p>
+        <p class="text-author"> </p>
+        <p class="text-date"> </p>
+        <button class="more" type="button">Подробнее...</button>
+        <div class="clearfix"></div>
+        <button class="delete" type="button"> Удалить</button>
+        <button class="redacte" type="button"> Редактировать</button>
+       <br>
+        <br>
+    </div>
+    <br>
+    <br>
+</div>
+<div class="clearfix"></div>
+<div class="footer">
+    <div class="footer-container">
+        <p class="info-in-footer">NewsPortal</p>
+        <p class="info-in-footer">Aliaxandra Kasich</p>
+        <p class="info-in-footer">2 курс, 5 группа</p>
+        <p class="info-in-footer">Sane4ka022@mail.ru</p>
+        <p class="info-in-footer">21.02.2017</p>
+    </div>
+</div>
+
+
+
+
+<script src="index.js"></script>
+</body>
+</html>
