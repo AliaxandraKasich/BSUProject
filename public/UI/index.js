@@ -1,204 +1,6 @@
 "use strict";
-var articleModel = function () {
-    var articles = [
-        {
-            id: '1',
-            img: 'http://telegraf.com.ua/files/2015/05/51049547.jpg',
-            title: 'Том Хэнкс готовит к изданию сборник своих рассказов ',
-            summary: 'Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories)',
-            createdAt: new Date('2016-12-29T23:00:00'),
-            author: 'Алина Шеменова',
-            content: 'Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.',
-        },
-        {
-            id: '2',
-            img: 'http://mebelsekret.ru/wp-content/uploads/2014/10/softform-vels-%D0%9A%D0%BE%D0%BF%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C.png',
-            title: '5 советов при выборе мебели',
-            summary: 'Выбираете мебель и не знаете с чего начать? Многообразие выбора только усложняет и без того нелёгкий процесс поиска? Давайте по порядку.',
-            createdAt: new Date('2016-12-14T18:30:00'),
-            author: 'Mr. Snow',
-            content: 'Выбираете мебель и не знаете с чего начать? Многообразие выбора только усложняет и без того нелёгкий процесс поиска? Давайте по порядку.',
-        },
-        {
-            id: '3',
-            img: 'https://images3.cosmopolitan.ru/upload/img_cache/7fc/7fc36124c8d363cdd1d8d976e7697c04_cropped_740x460.jpg',
-            title: 'Криштиану Роналду и Анджелина Джоли снимутся в турецком сериале',
-            summary: 'Нападающий испанского футбольного клуба «Реал» Криштиану Роналду и американская актриса Анджелина Джоли снимутся в турецком сериале. Об этом сообщает издании Daily Saban.',
-            createdAt: new Date('2016-01-01T20:30:00'),
-            author: 'Константин Семенов',
-            content: 'Нападающий испанского футбольного клуба «Реал» Криштиану Роналду и американская актриса Анджелина Джоли снимутся в турецком сериале. Об этом сообщает издании Daily Saban.',
-        },
-        {
-            id: '4',
-            img: 'http://telegraf.com.ua/files/2015/05/51049547.jpg',
-            title: 'Том Хэнкс готовит к изданию сборник своих рассказов ',
-            summary: 'Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories)',
-            createdAt: new Date('2016-12-28T23:00:00'),
-            author: 'Алина Шеменова',
-            content: 'Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.',
-        },
-        {
-            id: '5',
-            img: 'https://ptzgovorit.ru/sites/default/files/original_nodes/000000131.jpg',
-            title: '5 советов при выборе мебели',
-            summary: 'Выбираете мебель и не знаете с чего начать? Многообразие выбора только усложняет и без того нелёгкий процесс поиска? Давайте по порядку.',
-            createdAt: new Date('2016-12-29T18:30:00'),
-            author: 'Алина Шеменова',
-            content: 'Выбираете мебель и не знаете с чего начать? Многообразие выбора только усложняет и без того нелёгкий процесс поиска? Давайте по порядку.',
-        },
-        {
-            id: '6',
-            img: 'https://www.rbc.ua/static/img/j/o/jouli_650x410.jpg',
-            title: 'Криштиану Роналду и Анджелина Джоли снимутся в турецком сериале',
-            summary: 'Нападающий испанского футбольного клуба «Реал» Криштиану Роналду и американская актриса Анджелина Джоли снимутся в турецком сериале. Об этом сообщает издании Daily Saban.',
-            createdAt: new Date('2017-01-02T14:30:00'),
-            author: 'Константин Семенов',
-            content: 'Нападающий испанского футбольного клуба «Реал» Криштиану Роналду и американская актриса Анджелина Джоли снимутся в турецком сериале. Об этом сообщает издании Daily Saban.',
-        },
-        {
-            id: '7',
-            img: 'http://telegraf.com.ua/files/2015/05/51049547.jpg',
-            title: 'Том Хэнкс готовит к изданию сборник своих рассказов ',
-            summary: 'Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories)',
-            createdAt: new Date('2017-02-01T23:00:00'),
-            author: 'Алина Шеменова',
-            content: 'Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.',
-        },
-        {
-            id: '8',
-            img: 'https://dom35.by/upload/iblock/294/294f69ff55b289eb85e7e4146267718d.jpg',
-            title: '5 советов при выборе мебели',
-            summary: 'Выбираете мебель и не знаете с чего начать? Многообразие выбора только усложняет и без того нелёгкий процесс поиска? Давайте по порядку.',
-            createdAt: new Date('2016-12-23T18:30:00'),
-            author: 'Mr. Snow',
-            content: 'Выбираете мебель и не знаете с чего начать? Многообразие выбора только усложняет и без того нелёгкий процесс поиска? Давайте по порядку.',
-        },
-        {
-            id: '9',
-            img: 'https://www.rbc.ua/static/img/j/o/jouli_650x410.jpg',
-            title: 'Криштиану Роналду и Анджелина Джоли снимутся в турецком сериале',
-            summary: 'Нападающий испанского футбольного клуба «Реал» Криштиану Роналду и американская актриса Анджелина Джоли снимутся в турецком сериале. Об этом сообщает издании Daily Saban.',
-            createdAt: new Date('2017-02-18T20:30:00'),
-            author: 'Константин Семенов',
-            content: 'Нападающий испанского футбольного клуба «Реал» Криштиану Роналду и американская актриса Анджелина Джоли снимутся в турецком сериале. Об этом сообщает издании Daily Saban.',
-        },
-        {
-            id: '10',
-            img: 'http://cdn.fishki.net/upload/post/201507/09/1591136/1_tom_hanks-e1425716608889.jpg',
-            title: 'Том Хэнкс готовит к изданию сборник своих рассказов',
-            summary: 'Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories)',
-            createdAt: new Date('2016-12-09T23:00:00'),
-            author: 'Mr. Snow',
-            content: 'Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.',
-        },
-        {
-            id: '11',
-            img: 'https://www.triya.ru/upload/iblock/264/29af48be_6e85_11e2_a058_00269e0aabeb_29af48be_6e85_11e2_a058_00269e0aabeb.png',
-            title: '5 советов при выборе мебели',
-            summary: 'Выбираете мебель и не знаете с чего начать? Многообразие выбора только усложняет и без того нелёгкий процесс поиска? Давайте по порядку.',
-            createdAt: new Date('2016-01-19T18:30:00'),
-            author: 'Алина Шеменова',
-            content: 'Выбираете мебель и не знаете с чего начать? Многообразие выбора только усложняет и без того нелёгкий процесс поиска? Давайте по порядку.',
-        },
-        {
-            id: '12',
-            img: 'https://images3.cosmopolitan.ru/upload/img_cache/7fc/7fc36124c8d363cdd1d8d976e7697c04_cropped_740x460.jpg',
-            title: 'Криштиану Роналду и Анджелина Джоли снимутся в турецком сериале ',
-            summary: 'Нападающий испанского футбольного клуба «Реал» Криштиану Роналду и американская актриса Анджелина Джоли снимутся в турецком сериале. Об этом сообщает издании Daily Saban.',
-            createdAt: new Date('2017-01-07T20:30:00'),
-            author: 'Mr. Snow',
-            content: 'Нападающий испанского футбольного клуба «Реал» Криштиану Роналду и американская актриса Анджелина Джоли снимутся в турецком сериале. Об этом сообщает издании Daily Saban.',
-        },
-        {
-            id: '13',
-            img: 'https://images3.cosmopolitan.ru/upload/img_cache/7fc/7fc36124c8d363cdd1d8d976e7697c04_cropped_740x460.jpg',
-            title: 'Криштиану Роналду и Анджелина Джоли снимутся в турецком сериале',
-            summary: 'Нападающий испанского футбольного клуба «Реал» Криштиану Роналду и американская актриса Анджелина Джоли снимутся в турецком сериале. Об этом сообщает издании Daily Saban.',
-            createdAt: new Date('2017-03-01T20:00:00'),
-            author: 'Константин Семенов',
-            content: 'Нападающий испанского футбольного клуба «Реал» Криштиану Роналду и американская актриса Анджелина Джоли снимутся в турецком сериале. Об этом сообщает издании Daily Saban.',
-        },
-        {
-            id: '14',
-            img: 'https://sputnik.by/images/101841/75/1018417589.jpg',
-            title: 'Попытка №4. Минское "Динамо" спустя два года вновь сыграет в плей-офф КХЛ ',
-            summary: 'Минское «Динамо» начинает сегодня четвертую в своей истории серию плей-офф Континентальной хоккейной лиги.',
-            createdAt: new Date('2017-03-03T20:00:00'),
-            author: 'Антон Базанов',
-            content: 'Минское «Динамо» начинает сегодня четвертую в своей истории серию плей-офф Континентальной хоккейной лиги. NewsPortal рассказывает, чего ждать от противостояния с «Локомотивом», а также сравнивает нынешних «зубров» с предыдущими составами, выходившими в плей-офф.',
-        },
-        {
-            id: '15',
-            img: 'http://699.by/wp-content/uploads/2017/02/181506c2hten22bbvegq7m.jpg',
-            title: '5 советов при выборе мебели',
-            summary: 'Выбираете мебель и не знаете с чего начать? Многообразие выбора только усложняет и без того нелёгкий процесс поиска? Давайте по порядку.',
-            createdAt: new Date('2016-10-10T18:30:00'),
-            author: 'Валентина Сабольская',
-            content: 'Выбираете мебель и не знаете с чего начать? Многообразие выбора только усложняет и без того нелёгкий процесс поиска? Давайте по порядку.',
-        },
-        {
-            id: '16',
-            img: 'http://telegraf.com.ua/files/2015/05/51049547.jpg',
-            title: 'Том Хэнкс готовит к изданию сборник своих рассказов ',
-            summary: 'Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories)',
-            createdAt: new Date('2016-01-28T23:30:00'),
-            author: 'Екатерина Лаврова',
-            content: 'Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.',
-        },
-        {
-            id: '17',
-            img: 'https://img.tyt.by/n/sport/10/0/12_khokkey_belarus_-_franciya_kors_tutby_20130204_0150.jpg',
-            title: 'Команда Беларуси завоевала 16 медалей на Кубке мира по зимнему плавани',
-            summary: 'Сборная Беларуси завоевала 16 медалей на Кубке мира по зимнему плаванию в столице Эстонии Таллине. Турнир прошел 4−5 марта 2017 г.',
-            createdAt: new Date('2017-03-05T18:30:00'),
-            author: 'Mr. Snow',
-            content: 'Сборная Беларуси завоевала 16 медалей на Кубке мира по зимнему плаванию в столице Эстонии Таллине. Турнир прошел 4−5 марта 2017 г.',
-        },
-        {
-            id: '18',
-            img: 'https://sputnik.by/images/101841/75/1018417589.jpg',
-            title: 'Команда Беларуси завоевала 16 медалей на Кубке мира по зимнему плавани',
-            summary: 'Сборная Беларуси завоевала 16 медалей на Кубке мира по зимнему плаванию в столице Эстонии Таллине. Турнир прошел 4−5 марта 2017 г.',
-            createdAt: new Date('2015-12-29T20:30:00'),
-            author: 'Валентина Сабольская',
-            content: 'Сборная Беларуси завоевала 16 медалей на Кубке мира по зимнему плаванию в столице Эстонии Таллине. Турнир прошел 4−5 марта 2017 г.',
-        },
-        {
-            id: '19',
-            img: 'http://cdn.fishki.net/upload/post/201507/09/1591136/1_tom_hanks-e1425716608889.jpg',
-            title: 'Том Хэнкс готовит к изданию сборник своих рассказов ',
-            summary: 'Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories)',
-            createdAt: new Date('2016-02-01T02:17:00'),
-            author: 'Алина Шеменова',
-            content: 'Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.',
-        },
-        {
-            id: '20',
-            img: 'https://img.tyt.by/n/sport/10/0/12_khokkey_belarus_-_franciya_kors_tutby_20130204_0150.jpg',
-            title: 'Команда Беларуси завоевала 15 медалей на Кубке мира по зимнему плавани',
-            summary: 'Сборная Беларуси завоевала 16 медалей на Кубке мира по зимнему плаванию в столице Эстонии Таллине. Турнир прошел 4−5 марта 2017 г.',
-            createdAt: new Date('2017-03-05T18:00:00'),
-            author: 'Константин Семенов',
-            content: 'Сборная Беларуси завоевала 16 медалей на Кубке мира по зимнему плаванию в столице Эстонии Таллине. Турнир прошел 4−5 марта 2017 г.',
-        },
-        {
-            id: '21',
-            img: 'http://www.zooclub.ru/skat/img.php?w=700&h=700&img=./attach/7328.jpg',
-            title: 'Котик',
-            summary: 'Сборная Беларуси завоевала 16 медалей на Кубке мира по зимнему плаванию в столице Эстонии Таллине. Турнир прошел 4−5 марта 2017 г.',
-            createdAt: new Date('2018-03-05T18:30:00'),
-            author: 'Mr. Snow',
-            content: 'Сборная Беларуси завоевала 16 медалей на Кубке мира по зимнему плаванию в столице Эстонии Таллине. Турнир прошел 4−5 марта 2017 г.',
-        }
-
-    ];
-
-    /*function workerWithLocal() {
-     var articles = JSON.parse(localStorage.getItem('articleModel')) || [];
-     for(article of articles){
-     article.createdAt = new Date(article.createdAt);
-     }*/
-
+var articleModel =( function () {
+    var articles = [];
 
     var userName = 'Valentina';
 
@@ -210,7 +12,7 @@ var articleModel = function () {
         filterConfig = filterConfig || {};
         var _articles;
         if (filterConfig.author !== undefined && filterConfig.createdAt !== undefined) {
-            _articles = articles.filter(function (article) {
+            _articles = articleModel.articles.filter(function (article) {
                 return article.author === filterConfig.author;
             })
             _articles = _articles.filter(function (article) {
@@ -221,20 +23,20 @@ var articleModel = function () {
         }
         else {
             if (filterConfig.author !== undefined) {
-                _articles = articles.filter(function (article) {
+                _articles = articleModel.articles.filter(function (article) {
                     return article.author === filterConfig.author;
                 })
             }
             else {
                 if (filterConfig.createdAt !== undefined) {
-                    _articles = articles.filter(function (article) {
+                    _articles = articleModel.articles.filter(function (article) {
                         var date = article.createdAt;
                         date.setHours(3, 0, 0, 0);
                         return filterConfig.createdAt.getTime() === date.getTime();
                     })
                 }
                 else {
-                    _articles = articles;
+                    _articles = articleModel.articles;
                 }
             }
 
@@ -244,13 +46,14 @@ var articleModel = function () {
         })
         return _articles.slice(skip, top + skip);
     }
+
     function getArticles2(skip, top, filterConfig) {
         skip = skip || 0;
-        top = top || articles.length;
+        top = top || articleModel.articles.length;
         filterConfig = filterConfig || {};
         var _articles;
         if (filterConfig.author !== undefined && filterConfig.createdAt !== undefined) {
-            _articles = articles.filter(function (article) {
+            _articles = articleModel.articles.filter(function (article) {
                 return article.author === filterConfig.author;
             })
             _articles = _articles.filter(function (article) {
@@ -261,20 +64,20 @@ var articleModel = function () {
         }
         else {
             if (filterConfig.author !== undefined) {
-                _articles = articles.filter(function (article) {
+                _articles = articleModel.articles.filter(function (article) {
                     return article.author === filterConfig.author;
                 })
             }
             else {
                 if (filterConfig.createdAt !== undefined) {
-                    _articles = articles.filter(function (article) {
+                    _articles = articleModel.articles.filter(function (article) {
                         var date = article.createdAt;
                         date.setHours(3, 0, 0, 0);
                         return filterConfig.createdAt.getTime() === date.getTime();
                     })
                 }
                 else {
-                    _articles = articles;
+                    _articles = articleModel.articles;
                 }
             }
 
@@ -290,9 +93,9 @@ var articleModel = function () {
         var article;
         if (typeof id === 'string') {
             if (id) {
-                for (var i = 0; i < articles.length; i++) {
-                    if (id.localeCompare(articles[i].id) == 0) {
-                        return article = articles[i];
+                for (var i = 0; i < articleModel.articles.length; i++) {
+                    if (id.localeCompare(articleModel.articles[i].id) == 0) {
+                        return article = articleModel.articles[i];
                     }
                 }
             }
@@ -321,18 +124,18 @@ var articleModel = function () {
         id = id || null;
         article = article || {};
         var index;
-        for (var i = 0; i < articles.length; i++) {
-            if (id == articles[i].id) {
+        for (var i = 0; i < articleModel.articles.length; i++) {
+            if (id == articleModel.articles[i].id) {
                 index = i;
-                if (validateArticle(articles[i]) == true) {
+                if (validateArticle(articleModel.articles[i]) == true) {
                     if (article.title !== undefined) {
-                        articles[i].title = article.title;
+                        articleModel.articles[i].title = article.title;
                     }
                     if (article.summary !== undefined) {
-                        articles[i].summary = article.summary;
+                        articleModel.articles[i].summary = article.summary;
                     }
                     if (article.content !== undefined) {
-                        articles[i].content = article.content;
+                        articleModel.articles[i].content = article.content;
                     }
                     return true;
                 }
@@ -349,11 +152,11 @@ var articleModel = function () {
 
     function removeArticle(id) {
         id = id || null;
-        for (var i = 0; i < articles.length; i++) {
-            if (id == articles[i].id) {
-                console.log(articles[i]);
-                articles.splice(i, 1);
-                //delete articles[i];
+        for (var i = 0; i < articleModel.articles.length; i++) {
+            if (id === articleModel.articles[i].id) {
+                console.log(articleModel.articles[i]);
+                articleModel.articles.splice(i, 1);
+                //delete articleModel.articles[i];
                 return true;
             }
         }
@@ -363,10 +166,10 @@ var articleModel = function () {
     function addArticle(article) {
         article = article || {};
         article.id = (maxId + 1) + '';
-        if (validateArticle(article) == true) {
-            articles.splice(articles.length, 0, article);
+        if (validateArticle(article) === true) {
+            articleModel.articles.push(article);
+            console.log(articleModel.articles);
             maxId++;
-            // console.log(getArticle(maxId + ''))
             return true;
         }
         else {
@@ -375,11 +178,12 @@ var articleModel = function () {
     }
 
     function getArticlesCount() {
-        return articles.length;
+        return articleModel.articles.length;
     }
 
 
     return {
+        articles: articles,
         getArticles: getArticles,
         getArticle: getArticle,
         validateArticle: validateArticle,
@@ -391,13 +195,15 @@ var articleModel = function () {
         setUserName: setUserName,
         getId: getId,
         getArticlesCount: getArticlesCount,
-        getArticles2:getArticles2
+        getArticles2: getArticles2,
+        //workerWithLocal: workerWithLocal
         //workerWithLocal:workerWithLocal
     }
 }
-
+)();
 
 var tempId = '';
+
 var htmlControler = function () {
 
     var ARTICLE_TEMPLATE;
@@ -516,21 +322,22 @@ document.addEventListener('DOMContentLoaded', startApp);
 
 
 function startApp() {
-    workerWithHtml.init();
-    workerWithHtml.workerWithUser(workerWithArticles.getUserName());
-    workerWithHtml.showArticles(workerWithArticles.getArticles());
-    console.log(workerWithArticles.getArticles());
 
-    //document.getElementById('pagination-show-more').style.display='inline';
-    /* showButtonUser();
-     deleteButtonOnNews();
-     redacteButtonUser();
-     apllyRedacteButtonUser();
-     filterName();
-     addButtonUser();
-     apllyAddButtonUser();
-     redacteButtonOnNews();
-     deleteButtonUser();*/
+        if (!localStorage.getItem('articles')) {
+            localStorage.setItem('articles', JSON.stringify(fillArticles.articles));
+            articleModel.articles = fillArticles.articles;
+        }
+        else {
+            articleModel.articles = JSON.parse(localStorage.getItem('articles'));
+            articleModel.articles.forEach(item => item.createdAt = new Date(item.createdAt));
+        }
+
+    workerWithHtml.init();
+    workerWithHtml.workerWithUser(articleModel.getUserName());
+    workerWithHtml.showArticles(articleModel.getArticles());
+    console.log(articleModel.getArticles());
+    console.log(articleModel.articles);
+
     apllyAddButtonUser();
     allFunctions();
     exitButton();
@@ -540,9 +347,6 @@ function startApp() {
     callNewsPortal();
     buttonError();
 
-
-    //localStorage.setItem('articleModel', JSON.stringify(articles));
-    //var total = workerWithArticles.getArticlesCount();
     var paginationParams = pagination.init(renderArticlesPag);
 
     renderArticlesPag(paginationParams.skip, paginationParams.top);
@@ -550,7 +354,7 @@ function startApp() {
 
 }
 
-var workerWithArticles = articleModel();
+//var workerWithArticles = articleModel();
 var workerWithHtml = htmlControler();
 
 
@@ -563,31 +367,37 @@ function allFunctions() {
     addButtonUser();
 }
 
+/*
 function showArticles(skip, top, filter) {
-    var array = workerWithArticles.getArticles(skip, top, filter);
+    var array = articleModel.getArticles(skip, top, filter);
     workerWithHtml.showArticles(array);
 }
+
 function addArticle(article) {
-    var temp = workerWithArticles.addArticle(article);
+    var temp = articleModel.addArticle(article);
     workerWithHtml.addArticle(article);
-    var array = workerWithArticles.getArticles();
+    var array = articleModel.getArticles();
     workerWithHtml.showArticles(array);
 }
+
 function removeArticle(id) {
-    var temp = workerWithArticles.removeArticle(id);
+    var temp = articleModel.removeArticle(id);
     workerWithHtml.removeArticle(id);
     return temp;
 }
+
 function editArticle(id, article) {
-    var temp = workerWithArticles.editArticle(id, article);
-    var newArticle = workerWithArticles.getArticle(id);
+    var temp = articleModel.editArticle(id, article);
+    var newArticle = articleModel.getArticle(id);
     console.log(newArticle);
     workerWithHtml.editArticle(id, newArticle);
     return temp;
 }
+
 function setUser(userName) {
-    workerWithHtml.workerWithUser(workerWithArticles.getUserName());
+    workerWithHtml.workerWithUser(articleModel.getUserName());
 }
+*/
 
 function callNewsPortal() {
     var checkbox = document.querySelector("#logo");
@@ -608,8 +418,10 @@ function callNewsPortal() {
             document.querySelector('.block-filter').style.display = 'block';
             document.querySelector('.work_with-error').style.display = 'none';
             //document.getElementById('pagination-show-more').style.display='inline';
+            var array = articleModel.getArticles();
+            workerWithHtml.showArticles(array);
 
-            if (document.getElementById('article-list').childElementCount != workerWithArticles.getArticlesCount()) {
+            if (document.getElementById('article-list').childElementCount != articleModel.getArticlesCount()) {
                 document.getElementById('pagination-show-more').style.display = 'inline';
                 document.querySelector('.pagination-bar').style.display = 'inline';
             }
@@ -627,8 +439,8 @@ function callNewsPortal() {
 
             document.getElementById('pagination-show-more').style.display = 'inline';
             document.querySelector('.pagination-bar').style.display = 'inline';
-            var array = workerWithArticles.getArticles();
-            workerWithHtml.showArticles(array);
+            //var array = articleModel.getArticles();
+            //workerWithHtml.showArticles(array);
             document.querySelector('.your-name').textContent = '';
             document.querySelector('#button-exit').style.display = 'inline';
             document.querySelector('#button-exit').textContent = 'Войти';
@@ -645,12 +457,12 @@ function callNewsPortal() {
             document.querySelector('#hello-world').style.display = 'none';
             document.querySelector('.content3').style.display = 'none';
             var tempdelete2 = document.querySelectorAll('.delete2');
-            for (var i = 0; i < tempdelete.length; i++) {
-                tempdelete[i].style.display = 'none';
+            for (var i = 0; i < tempdelete2.length; i++) {
+                tempdelete2[i].style.display = 'none';
             }
             var tempredacte2 = document.querySelectorAll('.redacte');
-            for (var i = 0; i < tempredacte.length; i++) {
-                tempredacte[i].style.display = 'none2';
+            for (var i = 0; i < tempredacte2.length; i++) {
+                tempredacte2[i].style.display = 'none2';
             }
         }
         allFunctions();
@@ -680,7 +492,7 @@ function buttonError() {
             document.querySelector('.work_with-error').style.display = 'none';
             //document.getElementById('pagination-show-more').style.display='inline';
 
-            if (document.getElementById('article-list').childElementCount != workerWithArticles.getArticlesCount()) {
+            if (document.getElementById('article-list').childElementCount != articleModel.getArticlesCount()) {
                 document.getElementById('pagination-show-more').style.display = 'inline';
                 document.querySelector('.pagination-bar').style.display = 'inline';
             }
@@ -698,7 +510,7 @@ function buttonError() {
 
             document.getElementById('pagination-show-more').style.display = 'inline';
             document.querySelector('.pagination-bar').style.display = 'inline';
-            var array = workerWithArticles.getArticles();
+            var array = articleModel.getArticles();
             workerWithHtml.showArticles(array);
             document.querySelector('.your-name').textContent = '';
             document.querySelector('#button-exit').style.display = 'inline';
@@ -746,10 +558,11 @@ function deleteButtonUser() {
 
         document.getElementById('pagination-show-more').style.display = 'inline';
         document.querySelector('.pagination-bar').style.display = 'inline';
-        workerWithArticles.removeArticle(String(articleNodeToDelete.dataset.id));
+        articleModel.removeArticle(String(articleNodeToDelete.dataset.id));
         articleList.removeChild(articleNodeToDelete);
-        var array = workerWithArticles.getArticles();
-        workerWithHtml.showArticles(array);
+        localStorage.setItem('articles', JSON.stringify(articleModel.articles));
+        //var array = articleModel.getArticles();
+        //workerWithHtml.showArticles(array);
         allFunctions();
     }
 }
@@ -802,22 +615,25 @@ function apllyRedacteButtonUser() {
             return;
         }
         var articleNodeToApply = event.target.parentElement;
-        var tempArticle = workerWithArticles.getArticle(tempId);
+        var tempArticle = articleModel.getArticle(tempId);
         console.log(document.querySelector(".r-title").value);
         tempArticle.title = document.querySelector(".r-title").value;
         tempArticle.summary = document.querySelector(".r-summary").value;
         tempArticle.img = document.querySelector(".r-img").value;
         tempArticle.content = document.querySelector(".r-content").value;
-        if (workerWithArticles.validateArticle2(tempArticle) == true) {
+        if (articleModel.validateArticle2(tempArticle) == true) {
+
             workerWithHtml.editArticle(tempId, tempArticle);
-            workerWithArticles.editArticle(tempId, tempArticle);
+            articleModel.editArticle(tempId, tempArticle);
+            localStorage.setItem('articles', JSON.stringify(articleModel.articles));
             document.querySelector('#article-list').style.display = 'block';
             document.querySelector('.filter').style.display = 'block';
             document.querySelector('.block-filter').style.display = 'block';
             document.getElementById('redacte-form').style.display = 'none';
             document.getElementById('pagination-show-more').style.display = 'inline';
+            document.querySelector('.pagination-bar').style.display = 'inline';
             tempId = '';
-            var array = workerWithArticles.getArticles();
+            var array = articleModel.getArticles();
             workerWithHtml.showArticles(array);
         }
         else {
@@ -873,21 +689,24 @@ function apllyAddButtonUser() {
         tempArticle.title = articleNodeToAdd.querySelector(".r-title").value;
         tempArticle.summary = articleNodeToAdd.querySelector(".r-summary").value;
         tempArticle.img = articleNodeToAdd.querySelector(".r-img").value;
-        if(articleNodeToAdd.querySelector(".r-img").value == ''){
-            tempArticle.img =' http://yublog.students.uit.yorku.ca/wp-content/uploads/2014/07/8521874.gif';
+        if (articleNodeToAdd.querySelector(".r-img").value == '') {
+            tempArticle.img = ' http://yublog.students.uit.yorku.ca/wp-content/uploads/2014/07/8521874.gif';
         }
         tempArticle.content = articleNodeToAdd.querySelector(".r-content").value;
         tempArticle.author = articleNodeToAdd.querySelector('.r-author').value;
         tempArticle.createdAt = new Date(articleNodeToAdd.querySelector('.r-data').value);
-        if (workerWithArticles.addArticle(tempArticle) == true) {
+        if (articleModel.addArticle(tempArticle) == true) {
             workerWithHtml.addArticle(tempArticle);
+            localStorage.setItem('articles', JSON.stringify(articleModel.articles));
+            console.log(articleModel.articles);
+            console.log(localStorage.getItem('articles'));
             document.getElementById('pagination-show-more').style.display = 'inline';
             document.querySelector('#article-list').style.display = 'block';
             document.querySelector('.filter').style.display = 'block';
             document.querySelector('.block-filter').style.display = 'block';
             document.getElementById('redacte-form2').style.display = 'none';
             tempId = '';
-            var array = workerWithArticles.getArticles();
+            var array = articleModel.getArticles();
             workerWithHtml.showArticles(array);
         }
         else {
@@ -962,11 +781,12 @@ function deleteButtonOnNews() {
         document.querySelector('.filter').style.display = 'block';
         document.querySelector('.block-filter').style.display = 'block';
 
-        workerWithArticles.removeArticle(tempId);
+        articleModel.removeArticle(tempId);
         workerWithHtml.removeArticle(tempId);
+        localStorage.setItem('articles', JSON.stringify(articleModel.articles));
         document.getElementById('pagination-show-more').style.display = 'inline';
 
-        var array = workerWithArticles.getArticles();
+        var array = articleModel.getArticles();
         workerWithHtml.showArticles(array);
         tempId = '';
         allFunctions();
@@ -1042,7 +862,7 @@ function enterButton() {
         }
         else {
             if (document.querySelector('.text-login').value != '') {
-                workerWithArticles.setUserName(document.querySelector('.text-login').value);
+                articleModel.setUserName(document.querySelector('.text-login').value);
                 console.log(document.querySelector('.text-login').value);
                 var article = event.target.parentElement;
                 document.querySelector('#article-list').style.display = 'block';
@@ -1064,7 +884,7 @@ function enterButton() {
                 for (var i = 0; i < tempredacte.length; i++) {
                     tempredacte[i].style.display = 'inline';
                 }
-                var array = workerWithArticles.getArticles();
+                var array = articleModel.getArticles();
                 workerWithHtml.showArticles(array);
                 // allFunctions();
             }
@@ -1074,7 +894,7 @@ function enterButton() {
                 document.querySelector('.block-filter').style.display = 'block';
 
                 document.getElementById('pagination-show-more').style.display = 'inline';
-                var array = workerWithArticles.getArticles();
+                var array = articleModel.getArticles();
                 workerWithHtml.showArticles(array);
                 document.querySelector('.your-name').textContent = '';
                 document.querySelector('#button-exit').style.display = 'inline';
@@ -1112,23 +932,23 @@ function filterName() {
         var temp = {};
         temp.author = document.querySelector('.text').value;
         temp.createdAt = new Date(document.querySelector('.text2').value);
-        if (temp.author !== '' && document.querySelector('.text2').value !== '')  {
-            var array = workerWithArticles.getArticles2(undefined, undefined, temp);
+        if (temp.author !== '' && document.querySelector('.text2').value !== '') {
+            var array = articleModel.getArticles2(undefined, undefined, temp);
         }
         else {
             if (temp.author !== '') {
                 temp.createdAt = undefined;
-                var array = workerWithArticles.getArticles2(undefined, undefined, temp);
+                var array = articleModel.getArticles2(undefined, undefined, temp);
             }
             else {
-                if(document.querySelector('.text2').value !== '') {
+                if (document.querySelector('.text2').value !== '') {
                     temp.author = undefined;
-                    var array = workerWithArticles.getArticles2(undefined, undefined, temp);
+                    var array = articleModel.getArticles2(undefined, undefined, temp);
                 }
-                else{
+                else {
                     temp.author = undefined;
                     temp.createdAt = undefined;
-                    var array = workerWithArticles.getArticles2(undefined, undefined, temp);
+                    var array = articleModel.getArticles2(undefined, undefined, temp);
                 }
             }
         }
@@ -1167,7 +987,7 @@ var pagination = (function () {
     }
 
     function getTotalPages() {
-        TOTAL = workerWithArticles.getArticlesCount();
+        TOTAL = articleModel.getArticlesCount();
         return Math.ceil(TOTAL / PER_PAGE);
     }
 
@@ -1200,7 +1020,7 @@ var pagination = (function () {
 
 
 function renderArticlesPag(skip, top) {
-    var articles = workerWithArticles.getArticles(skip, top);
+    var articles = articleModel.getArticles(skip, top);
     workerWithHtml.showArticles(articles);
     allFunctions();
 }
