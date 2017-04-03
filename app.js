@@ -204,7 +204,7 @@ app.get('/article', function (req,res) {
             return req.query.id === article.id;
         })[0])
     }
-    res.json(articles);
+   // res.json(articles);
 });
 
 app.get('/article/:id', function (req, res) {
@@ -225,12 +225,25 @@ app.post('/article', function (req, res) {
         content: req.body.content
     };
     articles.push(article);
-    res.json(article);
+   // res.json(article);
+    res.sendStatus(200);
 });
 
 app.put('/article/:id', function (req, res) {
     var article = articles.find(function (article) {
         return article.id === req.params.id;
+    })
+    article.title = req.body.title;
+    article.img = req.body.img;
+    article.summary = req.body.summary;
+    article.content = req.body.content;
+    res.json(article);
+});
+
+app.put('/article', function (req, res) {
+    let id = req.query.id || req.body.id;
+    var article = articles.find(function (article) {
+        return article.id === id;
     })
     article.title = req.body.title;
     article.img = req.body.img;
