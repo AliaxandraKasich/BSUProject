@@ -69,6 +69,7 @@ header button:hover{
 .content2{
     width: 2px;
     height: 510px;
+    display: none;
 }
 
 .content{
@@ -530,7 +531,7 @@ header button:hover{
     height: 25px;
     font-family:"Rage Italic";
     font-size: 22px;
-    width: 200px;
+    width: 220px;
     cursor: pointer;
     float: left;
     margin-left: 100px;
