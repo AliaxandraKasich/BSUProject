@@ -1,299 +1,143 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+
 var app = express();
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
-var articles = [
-    {
-        id: '1',
-        img: 'http://telegraf.com.ua/files/2015/05/51049547.jpg',
-        title: 'Том Хэнкс готовит к изданию сборник своих рассказов ',
-        summary: 'Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories)',
-        createdAt: new Date('2016-12-29T23:00:00'),
-        author: 'Алина Шеменова',
-        content: 'Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.',
-    },
-    {
-        id: '2',
-        img: 'http://mebelsekret.ru/wp-content/uploads/2014/10/softform-vels-%D0%9A%D0%BE%D0%BF%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C.png',
-        title: '5 советов при выборе мебели',
-        summary: 'Выбираете мебель и не знаете с чего начать? Многообразие выбора только усложняет и без того нелёгкий процесс поиска? Давайте по порядку.',
-        createdAt: new Date('2016-12-14T18:30:00'),
-        author: 'Mr. Snow',
-        content: 'Выбираете мебель и не знаете с чего начать? Многообразие выбора только усложняет и без того нелёгкий процесс поиска? Давайте по порядку.',
-    },
-    {
-        id: '3',
-        img: 'https://images3.cosmopolitan.ru/upload/img_cache/7fc/7fc36124c8d363cdd1d8d976e7697c04_cropped_740x460.jpg',
-        title: 'Криштиану Роналду и Анджелина Джоли снимутся в турецком сериале',
-        summary: 'Нападающий испанского футбольного клуба «Реал» Криштиану Роналду и американская актриса Анджелина Джоли снимутся в турецком сериале. Об этом сообщает издании Daily Saban.',
-        createdAt: new Date('2016-01-01T20:30:00'),
-        author: 'Константин Семенов',
-        content: 'Нападающий испанского футбольного клуба «Реал» Криштиану Роналду и американская актриса Анджелина Джоли снимутся в турецком сериале. Об этом сообщает издании Daily Saban.',
-    },
-    {
-        id: '4',
-        img: 'http://telegraf.com.ua/files/2015/05/51049547.jpg',
-        title: 'Том Хэнкс готовит к изданию сборник своих рассказов ',
-        summary: 'Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories)',
-        createdAt: new Date('2016-12-28T23:00:00'),
-        author: 'Алина Шеменова',
-        content: 'Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.',
-    },
-    {
-        id: '5',
-        img: 'https://ptzgovorit.ru/sites/default/files/original_nodes/000000131.jpg',
-        title: '5 советов при выборе мебели',
-        summary: 'Выбираете мебель и не знаете с чего начать? Многообразие выбора только усложняет и без того нелёгкий процесс поиска? Давайте по порядку.',
-        createdAt: new Date('2016-12-29T18:30:00'),
-        author: 'Алина Шеменова',
-        content: 'Выбираете мебель и не знаете с чего начать? Многообразие выбора только усложняет и без того нелёгкий процесс поиска? Давайте по порядку.',
-    },
-    {
-        id: '6',
-        img: 'https://www.rbc.ua/static/img/j/o/jouli_650x410.jpg',
-        title: 'Криштиану Роналду и Анджелина Джоли снимутся в турецком сериале',
-        summary: 'Нападающий испанского футбольного клуба «Реал» Криштиану Роналду и американская актриса Анджелина Джоли снимутся в турецком сериале. Об этом сообщает издании Daily Saban.',
-        createdAt: new Date('2017-01-02T14:30:00'),
-        author: 'Константин Семенов',
-        content: 'Нападающий испанского футбольного клуба «Реал» Криштиану Роналду и американская актриса Анджелина Джоли снимутся в турецком сериале. Об этом сообщает издании Daily Saban.',
-    },
-    {
-        id: '7',
-        img: 'http://telegraf.com.ua/files/2015/05/51049547.jpg',
-        title: 'Том Хэнкс готовит к изданию сборник своих рассказов ',
-        summary: 'Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories)',
-        createdAt: new Date('2017-02-01T23:00:00'),
-        author: 'Алина Шеменова',
-        content: 'Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.',
-    },
-    {
-        id: '8',
-        img: 'https://dom35.by/upload/iblock/294/294f69ff55b289eb85e7e4146267718d.jpg',
-        title: '5 советов при выборе мебели',
-        summary: 'Выбираете мебель и не знаете с чего начать? Многообразие выбора только усложняет и без того нелёгкий процесс поиска? Давайте по порядку.',
-        createdAt: new Date('2016-12-23T18:30:00'),
-        author: 'Mr. Snow',
-        content: 'Выбираете мебель и не знаете с чего начать? Многообразие выбора только усложняет и без того нелёгкий процесс поиска? Давайте по порядку.',
-    },
-    {
-        id: '9',
-        img: 'https://www.rbc.ua/static/img/j/o/jouli_650x410.jpg',
-        title: 'Криштиану Роналду и Анджелина Джоли снимутся в турецком сериале',
-        summary: 'Нападающий испанского футбольного клуба «Реал» Криштиану Роналду и американская актриса Анджелина Джоли снимутся в турецком сериале. Об этом сообщает издании Daily Saban.',
-        createdAt: new Date('2017-02-18T20:30:00'),
-        author: 'Константин Семенов',
-        content: 'Нападающий испанского футбольного клуба «Реал» Криштиану Роналду и американская актриса Анджелина Джоли снимутся в турецком сериале. Об этом сообщает издании Daily Saban.',
-    },
-    {
-        id: '10',
-        img: 'http://cdn.fishki.net/upload/post/201507/09/1591136/1_tom_hanks-e1425716608889.jpg',
-        title: 'Том Хэнкс готовит к изданию сборник своих рассказов',
-        summary: 'Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories)',
-        createdAt: new Date('2016-12-09T23:00:00'),
-        author: 'Mr. Snow',
-        content: 'Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.',
-    },
-    {
-        id: '11',
-        img: 'https://www.triya.ru/upload/iblock/264/29af48be_6e85_11e2_a058_00269e0aabeb_29af48be_6e85_11e2_a058_00269e0aabeb.png',
-        title: '5 советов при выборе мебели',
-        summary: 'Выбираете мебель и не знаете с чего начать? Многообразие выбора только усложняет и без того нелёгкий процесс поиска? Давайте по порядку.',
-        createdAt: new Date('2016-01-19T18:30:00'),
-        author: 'Алина Шеменова',
-        content: 'Выбираете мебель и не знаете с чего начать? Многообразие выбора только усложняет и без того нелёгкий процесс поиска? Давайте по порядку.',
-    },
-    {
-        id: '12',
-        img: 'https://images3.cosmopolitan.ru/upload/img_cache/7fc/7fc36124c8d363cdd1d8d976e7697c04_cropped_740x460.jpg',
-        title: 'Криштиану Роналду и Анджелина Джоли снимутся в турецком сериале ',
-        summary: 'Нападающий испанского футбольного клуба «Реал» Криштиану Роналду и американская актриса Анджелина Джоли снимутся в турецком сериале. Об этом сообщает издании Daily Saban.',
-        createdAt: new Date('2017-01-07T20:30:00'),
-        author: 'Mr. Snow',
-        content: 'Нападающий испанского футбольного клуба «Реал» Криштиану Роналду и американская актриса Анджелина Джоли снимутся в турецком сериале. Об этом сообщает издании Daily Saban.',
-    },
-    {
-        id: '13',
-        img: 'https://images3.cosmopolitan.ru/upload/img_cache/7fc/7fc36124c8d363cdd1d8d976e7697c04_cropped_740x460.jpg',
-        title: 'Криштиану Роналду и Анджелина Джоли снимутся в турецком сериале',
-        summary: 'Нападающий испанского футбольного клуба «Реал» Криштиану Роналду и американская актриса Анджелина Джоли снимутся в турецком сериале. Об этом сообщает издании Daily Saban.',
-        createdAt: new Date('2017-03-01T20:00:00'),
-        author: 'Константин Семенов',
-        content: 'Нападающий испанского футбольного клуба «Реал» Криштиану Роналду и американская актриса Анджелина Джоли снимутся в турецком сериале. Об этом сообщает издании Daily Saban.',
-    },
-    {
-        id: '14',
-        img: 'https://sputnik.by/images/101841/75/1018417589.jpg',
-        title: 'Попытка №4. Минское "Динамо" спустя два года вновь сыграет в плей-офф КХЛ ',
-        summary: 'Минское «Динамо» начинает сегодня четвертую в своей истории серию плей-офф Континентальной хоккейной лиги.',
-        createdAt: new Date('2017-03-03T20:00:00'),
-        author: 'Антон Базанов',
-        content: 'Минское «Динамо» начинает сегодня четвертую в своей истории серию плей-офф Континентальной хоккейной лиги. NewsPortal рассказывает, чего ждать от противостояния с «Локомотивом», а также сравнивает нынешних «зубров» с предыдущими составами, выходившими в плей-офф.',
-    },
-    {
-        id: '15',
-        img: 'http://699.by/wp-content/uploads/2017/02/181506c2hten22bbvegq7m.jpg',
-        title: '5 советов при выборе мебели',
-        summary: 'Выбираете мебель и не знаете с чего начать? Многообразие выбора только усложняет и без того нелёгкий процесс поиска? Давайте по порядку.',
-        createdAt: new Date('2016-10-10T18:30:00'),
-        author: 'Валентина Сабольская',
-        content: 'Выбираете мебель и не знаете с чего начать? Многообразие выбора только усложняет и без того нелёгкий процесс поиска? Давайте по порядку.',
-    },
-    {
-        id: '16',
-        img: 'http://telegraf.com.ua/files/2015/05/51049547.jpg',
-        title: 'Том Хэнкс готовит к изданию сборник своих рассказов ',
-        summary: 'Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories)',
-        createdAt: new Date('2016-01-28T23:30:00'),
-        author: 'Екатерина Лаврова',
-        content: 'Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.',
-    },
-    {
-        id: '17',
-        img: 'https://img.tyt.by/n/sport/10/0/12_khokkey_belarus_-_franciya_kors_tutby_20130204_0150.jpg',
-        title: 'Команда Беларуси завоевала 16 медалей на Кубке мира по зимнему плавани',
-        summary: 'Сборная Беларуси завоевала 16 медалей на Кубке мира по зимнему плаванию в столице Эстонии Таллине. Турнир прошел 4−5 марта 2017 г.',
-        createdAt: new Date('2017-03-05T18:30:00'),
-        author: 'Mr. Snow',
-        content: 'Сборная Беларуси завоевала 16 медалей на Кубке мира по зимнему плаванию в столице Эстонии Таллине. Турнир прошел 4−5 марта 2017 г.',
-    },
-    {
-        id: '18',
-        img: 'https://sputnik.by/images/101841/75/1018417589.jpg',
-        title: 'Команда Беларуси завоевала 16 медалей на Кубке мира по зимнему плавани',
-        summary: 'Сборная Беларуси завоевала 16 медалей на Кубке мира по зимнему плаванию в столице Эстонии Таллине. Турнир прошел 4−5 марта 2017 г.',
-        createdAt: new Date('2015-12-29T20:30:00'),
-        author: 'Валентина Сабольская',
-        content: 'Сборная Беларуси завоевала 16 медалей на Кубке мира по зимнему плаванию в столице Эстонии Таллине. Турнир прошел 4−5 марта 2017 г.',
-    },
-    {
-        id: '19',
-        img: 'http://cdn.fishki.net/upload/post/201507/09/1591136/1_tom_hanks-e1425716608889.jpg',
-        title: 'Том Хэнкс готовит к изданию сборник своих рассказов ',
-        summary: 'Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories)',
-        createdAt: new Date('2016-02-01T02:17:00'),
-        author: 'Алина Шеменова',
-        content: 'Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.Американский актер Том Хэнкс в октябре выпустит сборник своих рассказов под названием «Истории о незаурядных пишущих машинках» (Uncommon Type: Some Stories). Как сообщил сам автор, он работал над книгой в течение двух лет.',
-    },
-    {
-        id: '20',
-        img: 'https://img.tyt.by/n/sport/10/0/12_khokkey_belarus_-_franciya_kors_tutby_20130204_0150.jpg',
-        title: 'Команда Беларуси завоевала 15 медалей на Кубке мира по зимнему плавани',
-        summary: 'Сборная Беларуси завоевала 16 медалей на Кубке мира по зимнему плаванию в столице Эстонии Таллине. Турнир прошел 4−5 марта 2017 г.',
-        createdAt: new Date('2017-03-05T18:00:00'),
-        author: 'Константин Семенов',
-        content: 'Сборная Беларуси завоевала 16 медалей на Кубке мира по зимнему плаванию в столице Эстонии Таллине. Турнир прошел 4−5 марта 2017 г.',
-    },
-    {
-        id: '21',
-        img: 'http://www.zooclub.ru/skat/img.php?w=700&h=700&img=./attach/7328.jpg',
-        title: 'Котик',
-        summary: 'Сборная Беларуси завоевала 16 медалей на Кубке мира по зимнему плаванию в столице Эстонии Таллине. Турнир прошел 4−5 марта 2017 г.',
-        createdAt: new Date('2018-03-05T18:30:00'),
-        author: 'Mr. Snow',
-        content: 'Сборная Беларуси завоевала 16 медалей на Кубке мира по зимнему плаванию в столице Эстонии Таллине. Турнир прошел 4−5 марта 2017 г.',
-    }
+var articleModel = require('./articleModel');
 
-];
-
-app.get('/article', function (req,res) {
-    if(req.query.id){
-        return res.json(articles.filter(function(article){
-            return req.query.id === article.id;
-        })[0])
-    }
-   // res.json(articles);
+app.get('/article', function (req, res) {
+  res.json(articleModel.getArticles());
 });
 
+app.get('/articleWithParams', function (req, res) {
+  var skip = req.body.skip;
+  var top = req.body.top;
+  res.json(articleModel.getArticles(skip, top));
+});
+
+app.get('/articleCount', function (req, res) {
+  res.json(articleModel.getArticlesCount());
+});
+
+app.get('/articleFilter/:author/:createdAt', function (req, res) {
+  var filter = {
+    author: req.params.author,
+    createdAt: req.params.createdAt
+  }
+  console.log(filter.author);
+  console.log(filter.createdAt);
+  res.json(articleModel.getArticles(undefined, undefined, filter));
+});
+
+app.get('/user', function (req, res) {
+  res.json(articleModel.userName);
+})
+
 app.get('/article/:id', function (req, res) {
-    var article = articles.find(function (article) {
-        return article.id === req.params.id;
-    })
-    res.json(article);
+  res.json(articleModel.getArticle(req.params.id));
 });
 
 app.post('/article', function (req, res) {
-    let article = {
-        id: articles.length +1,
-        img: req.body.img,
-        title: req.body.title,
-        summary: req.body.summary,
-        createdAt: Date.now(),
-        author: req.body.author,
-        content: req.body.content
-    };
-    articles.push(article);
-   // res.json(article);
-    res.sendStatus(200);
+  let article = {
+    img: req.body.img,
+    title: req.body.title,
+    summary: req.body.summary,
+    createdAt: Date.now(),
+    author: articleModel.userName,
+    content: req.body.content
+  };
+  if (articleModel.validateArticle2(article)) {
+    console.log('зашли в йнкцию');
+    articleModel.addArticle(article);
+    res.json(article);
+  } else {
+    article = null;
+    res.json(article);
+  }
 });
 
 app.put('/article/:id', function (req, res) {
-    var article = articles.find(function (article) {
-        return article.id === req.params.id;
-    })
-    article.title = req.body.title;
-    article.img = req.body.img;
-    article.summary = req.body.summary;
-    article.content = req.body.content;
+  var article = {};
+  article.title = req.body.title;
+  article.img = req.body.img;
+  article.summary = req.body.summary;
+  article.content = req.body.content;
+
+  if (articleModel.validateArticle2(article)) {
+    articleModel.editArticle(req.params.id, article)
+    res.json(articleModel.getArticle(req.params.id));
+  } else {
+    article = null;
     res.json(article);
+  }
 });
 
 app.put('/article', function (req, res) {
-    let id = req.query.id || req.body.id;
-    var article = articles.find(function (article) {
-        return article.id === id;
-    })
-    article.title = req.body.title;
-    article.img = req.body.img;
-    article.summary = req.body.summary;
-    article.content = req.body.content;
-    res.json(article);
+  var id = req.query.id || req.body.id;
+  var article = articleModel.articles.find(function (article) {
+    return article.id === id;
+  })
+  article.title = req.body.title;
+  article.img = req.body.img;
+  article.summary = req.body.summary;
+  article.content = req.body.content;
+  res.json(article);
 });
 
+app.put('/userName', function (req, res) {
+  articleModel.userName = req.body.user;
+  res.json(articleModel.userName);
+})
+
 app.delete('/article', function (req, res) {
-    let id = req.query.id || req.body.id;
-    articles = articles.filter(function(article){
-        return article.id !== id;})
-    res.sendStatus(200);
+  var id = req.query.id || req.body.id;
+  articleModel.articles = articleModel.articles.filter(function (article) {
+    return article.id !== id;
+  })
+  articleModel.removeArticle(id);
+  res.sendStatus(200);
 });
 
 app.delete('/article/:id', function (req, res) {
-    articles = articles.filter(function (article) {
-        return article.id !== req.params.id;
-    })
-    res.json({idWasRemoved: Number(req.params.id)});
+  var articles = articleModel.articles.filter(function (article) {
+    return article.id !== req.params.id;
+  })
+  res.json({ idWasRemoved: Number(req.params.id) });
 });
 
 app.patch('/article', function (req, res) {
-    let article = articles.find(function (article) {
-        return req.body.id === article.id;
-    });
-    if (req.body.img) {
-        article.img= req.body.img;
-        console.log(req.body.img);
-    }
+  var article = articleModel.articles.find(function (article) {
+    return req.body.id === article.id;
+  });
+  if (req.body.img) {
+    article.img = req.body.img;
+    console.log(req.body.img);
+  }
 
-    if (req.body.title) {
-        article.title = req.body.title;
-    }
-    if (req.body.summary) {
-        article.summary = req.body.summary;
-    }
-    if (req.body.content) {
-        article.content= req.body.content;
-    }
-
+  if (req.body.title) {
+    article.title = req.body.title;
+  }
+  if (req.body.summary) {
+    article.summary = req.body.summary;
+  }
+  if (req.body.content) {
+    article.content = req.body.content;
+  }
+  if (articleModel.validateArticle(article)) {
+    articleModel.editArticle(req.body.id, article);
     res.json(article);
+  }
 });
 
 app.use(express.static('public/UI'));
 
 app.get('/', function (req, res) {
-    res.send('index.html');
+  res.send('index.html');
 });
 
 app.listen(3000, function () {
-    console.log('App listening on port 3000!')
+  console.log('App listening on port 3000!')
 });
