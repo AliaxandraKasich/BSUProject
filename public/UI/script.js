@@ -516,8 +516,8 @@ function exitButton(event) {
   oReq.open('PUT', '/userName');
   oReq.setRequestHeader('content-type', 'application/json');
   var body = JSON.stringify({
-    user: document.querySelector('.your-name').textContent,
-  })
+      user: document.querySelector('.your-name').textContent,
+    })
   ;
   oReq.send(body);
 }
@@ -560,8 +560,8 @@ function enterButton(event) {
   oReq.open('PUT', '/userName');
   oReq.setRequestHeader('content-type', 'application/json');
   var body = JSON.stringify({
-    user: document.querySelector('.your-name').textContent,
-  })
+      user: document.querySelector('.your-name').textContent,
+    })
   ;
   oReq.send(body);
 }
@@ -586,7 +586,9 @@ function filterName(event) {
     var articles = JSON.parse(this.responseText);
     articles.forEach(article => article.createdAt = new Date(article.createdAt));
     workerWithHtml.showArticles(articles);
-    document.querySelector('.pagination-bar').style.display = 'none';
+    // if (articles.length < 5) {
+    //   document.querySelector('.pagination-bar').style.display = 'none';
+    // }
     allFunctions();
   });
   oReq.open('GET', '/articleFilter/' + temp.author + '/' + temp.createdAt);
