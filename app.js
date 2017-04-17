@@ -31,6 +31,7 @@ app.get('/articleFilter/:author/:createdAt', function (req, res) {
   console.log(filter.createdAt);
   res.json(articleModel.getArticles(undefined, undefined, filter));
 });
+//query запрос
 
 app.get('/user', function (req, res) {
   res.json(articleModel.userName);
@@ -87,7 +88,12 @@ app.put('/article', function (req, res) {
   res.json(article);
 });
 
-app.put('/userName', function (req, res) {
+app.put('/userNameExit', function (req, res) {
+  articleModel.userName = req.body.user;
+  res.sendStatus(200);
+})
+
+app.put('/userNameEnter', function (req, res) {
   articleModel.userName = req.body.user;
   res.json(articleModel.userName);
 })
@@ -105,7 +111,7 @@ app.delete('/article/:id', function (req, res) {
   var articles = articleModel.articles.filter(function (article) {
     return article.id !== req.params.id;
   })
-  res.json({ idWasRemoved: Number(req.params.id) });
+  res.sendStatus(200);
 });
 
 app.patch('/article', function (req, res) {
