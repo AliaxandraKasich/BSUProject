@@ -205,16 +205,17 @@ module.exports.getArticles = function (skip, top, filterConfig) {
   var _articles;
   _articles = articles;
 
-  if (filterConfig.author) {
+  if (filterConfig.author!==undefined && filterConfig.author !== 'undefined') {
     console.log(filterConfig.author);
     _articles = _articles.filter(function (article) {
       return article.author === filterConfig.author;
     })
     console.log('зашли в 1 модуль');
   }
+  console.log(filterConfig);
 
-  if (filterConfig.createdAt) {
-    console.log(filterConfig.createdAt);
+  if (filterConfig.createdAt!==undefined && filterConfig.createdAt !== 'undefined') {
+    console.log(filterConfig.createdAt + 'str 217');
     console.log('зашли в 2 модуль');
     filterConfig.createdAt = new Date(filterConfig.createdAt);
     _articles = _articles.filter(function (article) {
