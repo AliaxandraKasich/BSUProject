@@ -103,6 +103,7 @@ document.addEventListener('DOMContentLoaded', startApp);
 
 function startApp() {
   workerWithHtml.init();
+  //foo();
   renderArticles();
   userPage();
   allFunctions();
@@ -152,121 +153,217 @@ function allFunctions() {
   articleFilter.addEventListener('click', filterName);
 }
 
-function renderArticles() {
-  var oReq = new XMLHttpRequest();
-  oReq.addEventListener('load', function () {
-    var articles = JSON.parse(this.responseText);
-    articles.forEach(article => article.createdAt = new Date(article.createdAt));
-    workerWithHtml.showArticles(articles);
-    allFunctions();
-  });
-  oReq.open('GET', '/article');
-  oReq.send();
+function forRender() {
+  return new Promise(function (resolve, reject) {
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener('load', function () {
+      if (JSON.parse(this.responseText)) {
+        resolve(this.responseText);
+        console.log('все ок');
+        return;
+      }
+      reject();
+    });
+    oReq.open('GET', '/article');
+    oReq.send();
+
+
+  })
 }
-function userPage() {
-  var oReq = new XMLHttpRequest();
-  oReq.addEventListener('load', function () {
-    var name = JSON.parse(this.responseText);
-    workerWithHtml.workerWithUser(name);
-    allFunctions();
-  });
-  oReq.open('GET', '/user');
-  oReq.send();
+function renderArticles() {
+  forRender().then((responseText) => {
+      var articles = JSON.parse(responseText);
+      articles.forEach(article => article.createdAt = new Date(article.createdAt));
+      workerWithHtml.showArticles(articles);
+      allFunctions();
+    },
+    () => {
+      document.getElementById('redacte-form2').style.display = 'none';
+      document.getElementById('article-list').style.display = 'none';
+      document.querySelector('.work_with-error').style.display = 'block';
+      allFunctions();
+    });
 }
 
+function forUserPage() {
+  return new Promise(function (resolve, reject) {
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener('load', function () {
+      if (JSON.parse(this.responseText)) {
+        resolve(this.responseText);
+        console.log('все ок');
+        return;
+      }
+      reject(this.responseText);
+    });
+    oReq.open('GET', '/user');
+    oReq.send();
+  })
+}
+function userPage() {
+  forUserPage().then((responseText) => {
+      var name = JSON.parse(responseText);
+      workerWithHtml.workerWithUser(name);
+      allFunctions();
+    },
+    (responseText) => {
+      document.getElementById('redacte-form2').style.display = 'none';
+      document.querySelector('.work_with-error').style.display = 'none';
+      var name = JSON.parse(responseText)
+      workerWithHtml.workerWithUser(name);
+      allFunctions();
+    });
+}
+
+function forDeleteButtonUser() {
+  var articleNodeToDelete = event.target.parentElement;
+  console.log(articleNodeToDelete.dataset.id);
+
+  return new Promise(function (resolve, reject) {
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener('load', function () {
+      if (oReq.status === 200) {
+        resolve();
+        console.log('все ок');
+        return;
+      }
+      reject();
+    });
+    oReq.open('DELETE', '/article');
+    oReq.setRequestHeader('content-type', 'application/json');
+    var body = JSON.stringify({
+      id: articleNodeToDelete.dataset.id,
+    });
+    oReq.send(body);
+  })
+}
 function deleteButtonUser(event) {
+  var articleNodeToDelete = event.target.parentElement;
   var articleList = document.getElementById('article-list');
   if (event.target.tagName !== 'BUTTON') {
     return;
   }
-  var articleNodeToDelete = event.target.parentElement;
-  console.log(articleNodeToDelete.dataset.id);
-
-
-  var oReq = new XMLHttpRequest();
-  oReq.addEventListener('load', function () {
-    renderArticles();
-  });
-  oReq.open('DELETE', '/article');
-  oReq.setRequestHeader('content-type', 'application/json');
-  var body = JSON.stringify({
-    id: articleNodeToDelete.dataset.id,
-  });
-  oReq.send(body);
-
   document.querySelector('.pagination-bar').style.display = 'inline';
   articleList.removeChild(articleNodeToDelete);
+
+  forDeleteButtonUser().then(() => {
+      renderArticles();
+    },
+    () => {
+      document.getElementById('redacte-form2').style.display = 'none';
+      document.querySelector('.work_with-error').style.display = 'block';
+      allFunctions();
+    });
 }
 
+function forShowButtonUser() {
+  var articleNodeToShow = event.target.parentElement;
+  tempId = articleNodeToShow.dataset.id;
+
+  return new Promise(function (resolve, reject) {
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener('load', function () {
+      if (JSON.parse(this.responseText)) {
+        resolve(this.responseText);
+        console.log('все ок');
+        return;
+      }
+      reject();
+    });
+    oReq.open('GET', '/article/' + tempId);
+    console.log('воот' + tempId);
+    oReq.send();
+  })
+}
 function showButtonUser(event) {
   if (event.target.tagName !== 'BUTTON') {
     return;
   }
 
-  var articleNodeToShow = event.target.parentElement;
-  tempId = articleNodeToShow.dataset.id;
+  forShowButtonUser().then((responseText) => {
+      var articleToShow = JSON.parse(responseText);
+      articleToShow.createdAt = workerWithHtml.formatDate(new Date(articleToShow.createdAt));
 
-  var oReq = new XMLHttpRequest();
-  oReq.addEventListener('load', function () {
-    var articleToShow = JSON.parse(this.responseText);
-    articleToShow.createdAt = workerWithHtml.formatDate(new Date(articleToShow.createdAt));
+      document.getElementById('article-list').style.display = 'none';
+      document.getElementById('template-news').style.display = 'block';
+      document.getElementById('page-news').style.display = 'block';
+      document.querySelector('.content2').style.display = 'none';
+      document.querySelector('.filter').style.display = 'none';
+      document.querySelector('.pagination-bar').style.display = 'none';
 
-    document.getElementById('article-list').style.display = 'none';
-    document.getElementById('template-news').style.display = 'block';
-    document.getElementById('page-news').style.display = 'block';
-    document.querySelector('.content2').style.display = 'none';
-    document.querySelector('.filter').style.display = 'none';
-    document.querySelector('.pagination-bar').style.display = 'none';
+      var ARTICLE_TEMPLATE = document.getElementById('template-news');
+      ARTICLE_TEMPLATE.querySelector('.page-name').textContent = articleToShow.title;
+      ARTICLE_TEMPLATE.querySelector('.summary').textContent = articleToShow.summary;
+      ARTICLE_TEMPLATE.querySelector('.all-text-news').textContent = articleToShow.content;
+      ARTICLE_TEMPLATE.querySelector('.imgNews').src = articleToShow.img;
+      ARTICLE_TEMPLATE.querySelector('.text-author2').textContent = articleToShow.author;
+      ARTICLE_TEMPLATE.querySelector('.text-date2').textContent = articleToShow.createdAt;
+      if (document.querySelector('.your-name').textContent) {
+        var deleteButton = document.querySelector('.delete2');
+        deleteButton.style.display = 'inline';
+        var redacteButton = document.querySelector('.redacte2');
+        redacteButton.style.display = 'inline';
+        allFunctions();
+      } else {
+        var tempdelete = document.querySelector('.delete2');
+        tempdelete.style.display = 'none';
+        var tempredacte = document.querySelector('.redacte2');
+        tempredacte.style.display = 'none';
+        allFunctions();
 
-    var ARTICLE_TEMPLATE = document.getElementById('template-news');
-    ARTICLE_TEMPLATE.querySelector('.page-name').textContent = articleToShow.title;
-    ARTICLE_TEMPLATE.querySelector('.summary').textContent = articleToShow.summary;
-    ARTICLE_TEMPLATE.querySelector('.all-text-news').textContent = articleToShow.content;
-    ARTICLE_TEMPLATE.querySelector('.imgNews').src = articleToShow.img;
-    ARTICLE_TEMPLATE.querySelector('.text-author2').textContent = articleToShow.author;
-    ARTICLE_TEMPLATE.querySelector('.text-date2').textContent = articleToShow.createdAt;
-    if (document.querySelector('.your-name').textContent) {
-      var deleteButton = document.querySelector('.delete2');
-      deleteButton.style.display = 'inline';
-      var redacteButton = document.querySelector('.redacte2');
-      redacteButton.style.display = 'inline';
+      }
+    },
+    () => {
+      document.getElementById('redacte-form2').style.display = 'none';
+      document.querySelector('.work_with-error').style.display = 'block';
       allFunctions();
-    } else {
-      var tempdelete = document.querySelector('.delete2');
-      tempdelete.style.display = 'none';
-      var tempredacte = document.querySelector('.redacte2');
-      tempredacte.style.display = 'none';
-      allFunctions();
-    }
-  });
-  oReq.open('GET', '/article/' + tempId);
-  console.log('воот' + tempId);
-  oReq.send();
+    });
 }
 
+function forDeleteButtonOnNews() {
+  var articleNodeToDelete = event.target.parentElement;
+  console.log(articleNodeToDelete.dataset.id);
+
+  return new Promise(function (resolve, reject) {
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener('load', function () {
+      if (oReq.status === 200) {
+        resolve();
+        console.log('все ок  в удалении');
+        return;
+      }
+      reject();
+    });
+    oReq.open('DELETE', '/article');
+    oReq.setRequestHeader('content-type', 'application/json');
+    var body = JSON.stringify({
+      id: tempId,
+    });
+    oReq.send(body);
+  })
+}
 function deleteButtonOnNews(event) {
   if (event.target.tagName !== 'BUTTON') {
     return;
   }
-
-  var oReq = new XMLHttpRequest();
-  oReq.addEventListener('load', function () {
-    renderArticles();
-  });
-  oReq.open('DELETE', '/article');
-  oReq.setRequestHeader('content-type', 'application/json');
-  var body = JSON.stringify({
-    id: tempId,
-  });
-  oReq.send(body);
-
-  document.getElementById('article-list').style.display = 'block';
-  document.getElementById('template-news').style.display = 'none';
-  document.querySelector('.filter').style.display = 'block';
-  document.querySelector('.pagination-bar').style.display = 'inline';
-
-  workerWithHtml.removeArticle(tempId);
-  tempId = '';
+  forDeleteButtonOnNews().then(() => {
+      document.getElementById('article-list').style.display = 'block';
+      document.getElementById('template-news').style.display = 'none';
+      document.querySelector('.filter').style.display = 'block';
+      document.querySelector('.pagination-bar').style.display = 'inline';
+      workerWithHtml.removeArticle(tempId);
+      tempId = '';
+      renderArticles();
+    },
+    () => {
+      tempId = '';
+      document.getElementById('article-list').style.display = 'none';
+      document.getElementById('template-news').style.display = 'none';
+      document.querySelector('.filter').style.display = 'none';
+      document.querySelector('.pagination-bar').style.display = 'none';
+      document.querySelector('.work_with-error').style.display = 'block';
+      allFunctions();
+    });
 }
 
 function redacteButtonUser(event) {
@@ -354,67 +451,120 @@ function addButtonUser(event) {
   allFunctions();
 }
 
+function forRedacteButtonOnNews() {
+
+  return new Promise(function (resolve, reject) {
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener('load', function () {
+      if (JSON.parse(this.responseText)) {
+        resolve(this.responseText);
+        console.log('все ок в редактировании ');
+        return;
+      }
+      reject();
+    });
+    oReq.open('GET', '/article/' + tempId);
+    console.log('воот' + tempId);
+    oReq.send();
+  })
+}
 function redacteButtonOnNews(event) {
   if (event.target.tagName !== 'BUTTON') {
     return;
   }
   console.log(tempId);
-
-  var oReq = new XMLHttpRequest();
-  oReq.addEventListener('load', function () {
-    var articleNodeToRedacte = JSON.parse(this.responseText);
-    document.getElementById('redacte-form').style.display = 'block';
-    var temp = document.getElementById('redacte-form');
-    temp.querySelector('.r-title').value = articleNodeToRedacte.title;
-    temp.querySelector('.r-summary').value = articleNodeToRedacte.summary;
-    temp.querySelector('.r-img').value = articleNodeToRedacte.img;
-    temp.querySelector('.r-content').value = articleNodeToRedacte.content;
-    temp.querySelector('.r-data').value = articleNodeToRedacte.createdAt;
-    temp.querySelector('.r-author').value = articleNodeToRedacte.author;
-    document.getElementById('page-news').style.display = 'none';
-    document.getElementById('template-news').style.display = 'none';
-    document.getElementById('redacte-form').style.marginTop = '100px';
-    document.body.style.height = '570px';
-    allFunctions();
-  });
-  oReq.open('GET', '/article/' + tempId);
-  console.log('воот' + tempId);
-  oReq.send();
+  forRedacteButtonOnNews().then((responseText) => {
+      var articleNodeToRedacte = JSON.parse(responseText);
+      document.getElementById('redacte-form').style.display = 'block';
+      var temp = document.getElementById('redacte-form');
+      temp.querySelector('.r-title').value = articleNodeToRedacte.title;
+      temp.querySelector('.r-summary').value = articleNodeToRedacte.summary;
+      temp.querySelector('.r-img').value = articleNodeToRedacte.img;
+      temp.querySelector('.r-content').value = articleNodeToRedacte.content;
+      temp.querySelector('.r-data').value = articleNodeToRedacte.createdAt;
+      temp.querySelector('.r-author').value = articleNodeToRedacte.author;
+      document.getElementById('page-news').style.display = 'none';
+      document.getElementById('template-news').style.display = 'none';
+      document.getElementById('redacte-form').style.marginTop = '100px';
+      document.body.style.height = '570px';
+      allFunctions();
+    },
+    () => {
+      document.getElementById('redacte-form2').style.display = 'none';
+      document.getElementById('redacte-form').style.display = 'none';
+      document.getElementById('article-list').style.display = 'none';
+      document.querySelector('.work_with-error').style.display = 'block';
+      allFunctions();
+    });
 }
 
+function forApllyRedacteButtonUser() {
+  return new Promise(function (resolve, reject) {
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener('load', function () {
+      var temp = JSON.parse(this.responseText);
+      if (temp) {
+        resolve(temp);
+        console.log('все ок в соглашении с редактированием ');
+        return;
+      }
+      reject();
+    });
+    oReq.open('PUT', '/article/' + tempId);
+    oReq.setRequestHeader('content-type', 'application/json');
+    var body = JSON.stringify({
+      title: document.querySelector('.r-title').value,
+      img: document.querySelector('.r-img').value,
+      summary: document.querySelector('.r-summary').value,
+      content: document.querySelector('.r-content').value,
+    });
+    oReq.send(body);
+  })
+}
 function apllyRedacteButtonUser(event) {
   if (event.target.tagName !== 'BUTTON') {
     return;
   }
-
-  var oReq = new XMLHttpRequest();
-  oReq.addEventListener('load', function () {
-    var temp = JSON.parse(this.responseText);
-    if (temp) {
+  forApllyRedacteButtonUser().then((article) => {
       document.querySelector('#article-list').style.display = 'block';
       document.querySelector('.filter').style.display = 'block';
       document.getElementById('redacte-form').style.display = 'none';
       document.querySelector('.pagination-bar').style.display = 'inline';
       tempId = '';
       renderArticles();
-    } else {
+    },
+    () => {
       document.getElementById('redacte-form').style.display = 'none';
+      document.getElementById('redacte-form2').style.display = 'none';
       document.querySelector('.work_with-error').style.display = 'block';
-    }
-    allFunctions();
-  });
-
-  oReq.open('PUT', '/article/' + tempId);
-  oReq.setRequestHeader('content-type', 'application/json');
-  var body = JSON.stringify({
-    title: document.querySelector('.r-title').value,
-    img: document.querySelector('.r-img').value,
-    summary: document.querySelector('.r-summary').value,
-    content: document.querySelector('.r-content').value,
-  });
-  oReq.send(body);
+      allFunctions();
+    });
 }
 
+function forApllyAddButtonUser() {
+  return new Promise(function (resolve, reject) {
+    var oReq = new XMLHttpRequest();
+    var articleNodeToAdd = event.target.parentElement;
+    oReq.addEventListener('load', function () {
+      var temp = JSON.parse(this.responseText);
+      if (temp) {
+        resolve(temp);
+        console.log('все ок в соглашении с добавлением ');
+        return;
+      }
+      reject();
+    });
+    oReq.open('POST', '/article');
+    oReq.setRequestHeader('content-type', 'application/json');
+    var body = JSON.stringify({
+      title: articleNodeToAdd.querySelector('.r-title').value,
+      img: articleNodeToAdd.querySelector('.r-img').value,
+      summary: articleNodeToAdd.querySelector('.r-summary').value,
+      content: articleNodeToAdd.querySelector('.r-content').value,
+    });
+    oReq.send(body);
+  })
+}
 function apllyAddButtonUser(event) {
   if (event.target.tagName !== 'BUTTON') {
     return;
@@ -423,11 +573,7 @@ function apllyAddButtonUser(event) {
   if (articleNodeToAdd.querySelector('.r-img').value === '') {
     articleNodeToAdd.querySelector('.r-img').value = ' http://yublog.students.uit.yorku.ca/wp-content/uploads/2014/07/8521874.gif';
   }
-
-  var oReq = new XMLHttpRequest();
-  oReq.addEventListener('load', function () {
-    var temp = JSON.parse(this.responseText);
-    if (temp) {
+  forApllyAddButtonUser().then((temp) => {
       temp.createdAt = new Date(temp.createdAt);
       workerWithHtml.addArticle(temp);
       document.getElementById('pagination-show-more').style.display = 'inline';
@@ -438,22 +584,12 @@ function apllyAddButtonUser(event) {
       tempId = '';
       renderArticles();
       allFunctions();
-    } else {
+    },
+    () => {
       document.getElementById('redacte-form2').style.display = 'none';
       document.querySelector('.work_with-error').style.display = 'block';
       allFunctions();
-    }
-  });
-
-  oReq.open('POST', '/article');
-  oReq.setRequestHeader('content-type', 'application/json');
-  var body = JSON.stringify({
-    title: articleNodeToAdd.querySelector('.r-title').value,
-    img: articleNodeToAdd.querySelector('.r-img').value,
-    summary: articleNodeToAdd.querySelector('.r-summary').value,
-    content: articleNodeToAdd.querySelector('.r-content').value,
-  });
-  oReq.send(body);
+    });
 }
 
 function buttonError(event) {
@@ -491,37 +627,82 @@ function buttonError(event) {
   }
 }
 
+function forExitButton() {
+  return new Promise(function (resolve, reject) {
+    document.querySelector('.your-name').textContent = '';
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener('load', function () {
+      if (oReq.status === 200) {
+        resolve();
+        console.log('все ок  с выходом');
+        return;
+      }
+      reject();
+    });
+    oReq.open('PUT', '/userNameExit');
+    oReq.setRequestHeader('content-type', 'application/json');
+    var body = JSON.stringify({
+        user: document.querySelector('.your-name').textContent,
+      });
+    ;
+    oReq.send(body);
+  });
+}
 function exitButton(event) {
   if (event.target.tagName !== 'BUTTON') {
     return;
   }
-  document.querySelector('.your-name').textContent = '';
-  var oReq = new XMLHttpRequest();
-  oReq.addEventListener('load', function () {
-    document.querySelector('#hello-world').style.display = 'inline';
-    document.querySelector('#article-list').style.display = 'none';
-    document.getElementById('redacte-form').style.display = 'none';
-    document.getElementById('redacte-form2').style.display = 'none';
-    document.getElementById('template-news').style.display = 'none';
-    document.querySelector('.filter').style.display = 'none';
-    document.querySelector('.pagination-bar').style.display = 'none';
-    document.querySelector('.content3').style.display = 'block';
-    document.querySelector('#button-exit').style.display = 'none';
-    document.querySelector('.content3').style.marginTop = '140px';
-    document.querySelector('.footer').style.marginTop = '95px';
-    document.querySelector('.text-login').value = '';
-    document.querySelector('.text-pass').value = '';
-    allFunctions();
-  });
-  oReq.open('PUT', '/userName');
-  oReq.setRequestHeader('content-type', 'application/json');
-  var body = JSON.stringify({
-      user: document.querySelector('.your-name').textContent,
-    })
-  ;
-  oReq.send(body);
+  forExitButton().then(() => {
+      document.querySelector('#hello-world').style.display = 'inline';
+      document.querySelector('#article-list').style.display = 'none';
+      document.getElementById('redacte-form').style.display = 'none';
+      document.getElementById('redacte-form2').style.display = 'none';
+      document.getElementById('template-news').style.display = 'none';
+      document.querySelector('.filter').style.display = 'none';
+      document.querySelector('.pagination-bar').style.display = 'none';
+      document.querySelector('.content3').style.display = 'block';
+      document.querySelector('#button-exit').style.display = 'none';
+      document.querySelector('.content3').style.marginTop = '140px';
+      document.querySelector('.footer').style.marginTop = '95px';
+      document.querySelector('.text-login').value = '';
+      document.querySelector('.text-pass').value = '';
+      allFunctions();
+    },
+    () => {
+      document.querySelector('#article-list').style.display = 'none';
+      document.getElementById('redacte-form').style.display = 'none';
+      document.getElementById('redacte-form2').style.display = 'none';
+      document.getElementById('template-news').style.display = 'none';
+      document.querySelector('.filter').style.display = 'none';
+      document.querySelector('.pagination-bar').style.display = 'none';
+      document.querySelector('.content3').style.display = 'none';
+      document.querySelector('.work_with-error').style.display = 'block';
+      allFunctions();
+    });
 }
 
+function forEnterButton() {
+  return new Promise(function (resolve, reject) {
+    var article = event.target.parentElement;
+    document.querySelector('.your-name').textContent = article.querySelector('.text-login').value;
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener('load', function () {
+      if (JSON.parse(this.responseText)) {
+        resolve();
+        console.log('все ок  с входом');
+        return;
+      }
+      reject();
+    });
+    oReq.open('PUT', '/userNameEnter');
+    oReq.setRequestHeader('content-type', 'application/json');
+    var body = JSON.stringify({
+        user: document.querySelector('.your-name').textContent,
+      })
+    ;
+    oReq.send(body);
+  })
+}
 function enterButton(event) {
   if (event.target.tagName !== 'BUTTON') {
     return;
@@ -529,10 +710,7 @@ function enterButton(event) {
   var article = event.target.parentElement;
   document.querySelector('.your-name').textContent = article.querySelector('.text-login').value;
 
-  var oReq = new XMLHttpRequest();
-  oReq.addEventListener('load', function () {
-    var userName = JSON.parse(this.responseText);
-    if (userName) {
+  forEnterButton().then(() => {
       userPage();
       console.log(document.querySelector('.text-login').value);
       document.querySelector('#article-list').style.display = 'block';
@@ -542,7 +720,8 @@ function enterButton(event) {
       document.querySelector('#hello-world').style.display = 'none';
       document.querySelector('.content3').style.display = 'none';
       document.querySelector('.add-news').style.display = 'inline';
-    } else {
+    },
+    () => {
       userPage();
       document.getElementById('article-list').style.display = 'block';
       document.querySelector('.filter').style.display = 'block';
@@ -551,48 +730,52 @@ function enterButton(event) {
       document.querySelector('#button-exit').style.display = 'inline';
       document.querySelector('#button-exit').textContent = 'Войти';
       document.querySelector('.add-news').style.display = 'none';
-
       document.querySelector('.content2').style.display = 'none';
       document.querySelector('#hello-world').style.display = 'none';
       document.querySelector('.content3').style.display = 'none';
-    }
-  });
-  oReq.open('PUT', '/userName');
-  oReq.setRequestHeader('content-type', 'application/json');
-  var body = JSON.stringify({
-      user: document.querySelector('.your-name').textContent,
-    })
-  ;
-  oReq.send(body);
+    });
 }
 
+function forFilterName() {
+  return new Promise(function (resolve, reject) {
+    var temp = {};
+    temp.author = document.querySelector('.text').value;
+    temp.createdAt = new Date(document.querySelector('.text2').value);
+    if (temp.author === '') {
+      temp.author = undefined;
+    }
+    if (document.querySelector('.text2').value === '') {
+      temp.createdAt = undefined;
+    }
+
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener('load', function () {
+      if (JSON.parse(this.responseText)) {
+        resolve(this.responseText);
+        console.log('все ок  с входом');
+        return;
+      }
+      reject();
+    });
+    oReq.open('GET', '/articleFilter/' + temp.author + '/' + temp.createdAt);
+    oReq.send();
+  });
+}
 function filterName(event) {
   if (event.target.tagName !== 'BUTTON') {
     return;
   }
-
-  var temp = {};
-  temp.author = document.querySelector('.text').value;
-  temp.createdAt = new Date(document.querySelector('.text2').value);
-  if (temp.author === '') {
-    temp.author = undefined;
-  }
-  if (document.querySelector('.text2').value === '') {
-    temp.createdAt = undefined;
-  }
-
-  var oReq = new XMLHttpRequest();
-  oReq.addEventListener('load', function () {
-    var articles = JSON.parse(this.responseText);
-    articles.forEach(article => article.createdAt = new Date(article.createdAt));
-    workerWithHtml.showArticles(articles);
-    // if (articles.length < 5) {
-    //   document.querySelector('.pagination-bar').style.display = 'none';
-    // }
-    allFunctions();
-  });
-  oReq.open('GET', '/articleFilter/' + temp.author + '/' + temp.createdAt);
-  oReq.send();
+  forFilterName().then((responseText) => {
+      var articles = JSON.parse(responseText);
+      articles.forEach(article => article.createdAt = new Date(article.createdAt));
+      workerWithHtml.showArticles(articles);
+      allFunctions();
+    },
+    () => {
+      document.getElementById('article-list').style.display = 'none';
+      document.querySelector('.work_with-error').style.display = 'block';
+      allFunctions();
+    });
 }
 
 

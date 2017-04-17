@@ -594,14 +594,13 @@ header button:hover{
 
 
 #hello-world{
-    margin-top: 10%;
+    margin-top: 3%;
     color: purple;
     font-family: "Lucida Console";
     letter-spacing: -1px;
     align-items: center;
     align-content: center;
-    margin-left: 31%;
-    font-size: 34px;
+    font-size: 33px;
     margin-bottom: 3px;
     display: none;
 }
@@ -610,6 +609,7 @@ header button:hover{
 .content3{
     margin-top: 1%;
     margin-left: 10%;
+    margin-bottom: 140px;
     float: left;
     width: 40%;
     height: 40%;
