@@ -18,7 +18,10 @@
   "homepage": "https://github.com/AliaxandraKasich/BSUProject#readme",
   "dependencies": {
     "body-parser": "^1.17.1",
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "express-session": "^1.15.2",
+    "passport": "latest",
+    "passport-local": "latest"
   },
   "devDependencies": {
     "eslint": "^3.19.0",
