@@ -189,6 +189,7 @@ var articles = [
     content: 'Сборная Беларуси завоевала 16 медалей на Кубке мира по зимнему плаванию в столице Эстонии Таллине. Турнир прошел 4−5 марта 2017 г.',
   },
 ];
+articles.forEach(item => console.log(JSON.stringify(item)));
 var articleModel = require('./articleModel');
 
 module.exports.articles = articles;
@@ -227,14 +228,17 @@ module.exports.getArticles = function (skip, top, filterConfig) {
   _articles.sort(function (a, b) {
     return b.createdAt - a.createdAt;
   })
-  console.log(' skip = ' + skip);
+  console.log(' skip смотри= ' + skip);
   console.log(' top = ' + top);
-  return _articles.slice(skip, top + skip);
+  var ooopppsss = _articles.slice(skip, top + skip);
+  console.log("это ooopppssss" +ooopppsss.length);
+  return ooopppsss;
 }
 
 module.exports.getArticles2 = function (skip, top, filterConfig) {
   skip = skip || 0;
-  top = top || articles.length;
+  top = top || 10;
+  console.log("DDDDDDDDDDD");
   filterConfig = filterConfig || {};
   var _articles;
   if (filterConfig.author !== undefined && filterConfig.createdAt !== undefined) {

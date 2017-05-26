@@ -4,12 +4,17 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
 
+var MongoClient = require('mongodb').MongoClient;
+var db;
+var ObjectID = require('mongodb').ObjectID;
 
 
 var Users = [
-    {username:'Aliaxandra',
-    password:'1111',
-    id:'1'},
+    {
+        username: 'Aliaxandra',
+        password: '1111',
+        id: '1'
+    },
     {
         username: 'a',
         password: 'b',
@@ -26,36 +31,37 @@ app.use(passport.session());
 
 var articleModel = require('./articleModel');
 
+
 app.use(session({
     saveUninitialized: false,
     resave: false,
     secret: 'ThisIsMySecret',
-    cookie:{
+    cookie: {
         maxAge: 2628000000
     }
 }))
 
 
 passport.use(new LocalStrategy(
-    function(username, password, done) {
-      const user = Users.find(item => item.username === username);
-      if(!user){
-          return done(null, false)
-      }
-      if(user.password !== password){
-          return done(null, false);
-      }
-      return done(null, user);
+    function (username, password, done) {
+        const user = Users.find(item => item.username === username);
+        if (!user) {
+            return done(null, false)
+        }
+        if (user.password !== password) {
+            return done(null, false);
+        }
+        return done(null, user);
     }
 ));
 
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
     done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {
+passport.deserializeUser(function (id, done) {
     const user = Users.find(item => item.id === id);
-    if(user) {
+    if (user) {
         return done(null, user);
     }
     done(null, false);
@@ -68,7 +74,8 @@ app.post('/login', (req, res) => {
         }
         const sess = req.session;
         sess.user = user;
-        sess.save(() => {});
+        sess.save(() => {
+        });
         return res.status(200).send(user);
     })(req, res);
 });
@@ -83,10 +90,25 @@ app.get('/article', function (req, res) {
     res.json(articleModel.getArticles());
 });
 
-app.get('/articleWithParams', function (req, res) {
-    var skip = req.body.skip;
-    var top = req.body.top;
-    res.json(articleModel.getArticles(skip, top));
+/*
+app.get('/article', function (req, res) {
+    db.collection('').find().toArray(function (err, docs) {
+        if(err){
+            console.log(err);
+            return res.sendStatus(500);
+        }
+        res.send(docs);
+        
+    })
+});
+*/
+
+app.get('/articleWithParams/:top', function (req, res) {
+    var top = req.params.top;
+    var skip = 0;
+    console.log("lalalalala   "+ skip);
+    console.log("lalalalalalTOP    "+top);
+    res.json(articleModel.getArticles2(skip, top));
 });
 
 app.get('/articleCount', function (req, res) {
@@ -102,11 +124,10 @@ app.get('/articleFilter/:author/:createdAt', function (req, res) {
     console.log(filter.createdAt);
     res.json(articleModel.getArticles(undefined, undefined, filter));
 });
-//query запрос
 
 app.get('/user', function (req, res) {
     var sess = req.session;
-    if(sess.user) {
+    if (sess.user) {
         res.status(200).send(sess.user.username);
         return;
     }
@@ -136,6 +157,37 @@ app.post('/article', function (req, res) {
         res.json(article);
     }
 });
+
+
+/*
+app.post('/article', function (req, res) {
+    let article = {
+        img: req.body.img,
+        title: req.body.title,
+        summary: req.body.summary,
+        createdAt: Date.now(),
+        author: articleModel.userName,
+        content: req.body.content
+    };
+    if (articleModel.validateArticle2(article)) {
+        console.log('зашли в йнкцию');
+        //articleModel.addArticle(article);
+       // res.json(article);
+        db.collection('').insert(article, function (err, result) {
+            if(err){
+                console.log(err);
+                return res.sendStatus(500);
+            }
+            res.send(article);
+            
+        })
+    } else {
+        article = null;
+        res.json(article);
+    }
+});
+*/
+
 
 app.put('/article/:id', function (req, res) {
     var article = {};
@@ -221,6 +273,13 @@ app.get('/', function (req, res) {
     res.send('index.html');
 });
 
-app.listen(3000, function () {
-    console.log('App listening on port 3000!')
-});
+
+MongoClient.connect('mongodb://localhost:27017/myapp', function (err, database) {
+    if (err) {
+        return console.log(err);
+    }
+    db = database;
+    app.listen(3000, function () {
+        console.log('App listening on port 3000!')
+    });
+})
